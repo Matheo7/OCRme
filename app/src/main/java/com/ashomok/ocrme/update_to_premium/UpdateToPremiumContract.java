@@ -1,6 +1,6 @@
 package com.ashomok.ocrme.update_to_premium;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.billing.model.SkuRowData;
 import com.ashomok.ocrme.di_dagger.BasePresenter;

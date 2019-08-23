@@ -1,11 +1,9 @@
 package com.ashomok.ocrme.main;
 
-import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.annimon.stream.Collectors;
@@ -16,9 +14,6 @@ import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
 import com.ashomok.ocrme.billing.BillingProviderCallback;
 import com.ashomok.ocrme.billing.BillingProviderImpl;
-import com.ashomok.ocrme.rate_app.RateAppAsker;
-import com.ashomok.ocrme.rate_app.RateAppAskerCallback;
-import com.ashomok.ocrme.rate_app.RateAppDialogFragment;
 import com.ashomok.ocrme.utils.NetworkUtils;
 import com.ashomok.ocrme.utils.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,15 +1,12 @@
 package com.ashomok.ocrme.rate_app;
 
-import android.app.DialogFragment;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.test.filters.SmallTest;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.utils.Repeat;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +17,6 @@ import javax.inject.Inject;
 
 import static com.ashomok.ocrme.rate_app.RateAppAsker.RATE_APP_COUNT;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
-import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest

@@ -14,16 +14,14 @@
 
 package com.ashomok.ocrme.firebaseUiAuth;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -32,8 +30,6 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.AuthUI.IdpConfig;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -41,8 +37,6 @@ import java.util.List;
 
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showInfo;
-
-import butterknife.OnClick;
 
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showInfo;

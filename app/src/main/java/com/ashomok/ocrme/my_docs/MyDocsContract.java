@@ -5,7 +5,7 @@ package com.ashomok.ocrme.my_docs;
  */
 
 import android.content.Intent;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.di_dagger.BasePresenter;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;

@@ -1,33 +1,23 @@
 package com.ashomok.ocrme.ocr_result.tab_fragments.searchable_pdf;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
-import android.text.Html;
-import android.text.Spanned;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+
 import android.util.Log;
 
-import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.ocr_result.tab_fragments.text.TextPresenter;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
 
-import static com.ashomok.ocrme.Settings.appPackageName;
 import static com.ashomok.ocrme.utils.FileUtils.copy;
 import static com.ashomok.ocrme.utils.FileUtils.prepareDirectory;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;

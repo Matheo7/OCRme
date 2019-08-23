@@ -1,7 +1,7 @@
 package com.ashomok.ocrme.update_to_premium;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.billing.BillingProviderCallback;

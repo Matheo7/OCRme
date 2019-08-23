@@ -1,6 +1,6 @@
 package com.ashomok.ocrme.ocr_result.tab_fragments.text;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import javax.inject.Inject;
 

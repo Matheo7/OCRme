@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Environment;
-import android.support.test.InstrumentationRegistry;
-import android.support.v4.content.ContextCompat;
+import androidx.test.InstrumentationRegistry;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 
 import junit.framework.Assert;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 /**

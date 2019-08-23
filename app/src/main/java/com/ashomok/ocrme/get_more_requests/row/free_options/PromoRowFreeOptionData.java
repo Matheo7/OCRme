@@ -1,7 +1,7 @@
 package com.ashomok.ocrme.get_more_requests.row.free_options;
 
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 
 /**
  * Created by iuliia on 3/4/18.

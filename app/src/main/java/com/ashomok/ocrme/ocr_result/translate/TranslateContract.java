@@ -1,6 +1,6 @@
 package com.ashomok.ocrme.ocr_result.translate;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.di_dagger.BasePresenter;
 import com.ashomok.ocrme.ocr_result.translate.translate_task.translate_task.SupportedLanguagesResponse;

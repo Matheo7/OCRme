@@ -2,7 +2,7 @@ package com.ashomok.ocrme.ocr_result.tab_fragments.image_pdf;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.ashomok.ocrme.R;

@@ -2,9 +2,8 @@ package com.ashomok.ocrme.ocr_result;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.ashomok.ocrme.rate_app.RateAppAsker;
 import com.ashomok.ocrme.rate_app.RateAppAskerCallback;

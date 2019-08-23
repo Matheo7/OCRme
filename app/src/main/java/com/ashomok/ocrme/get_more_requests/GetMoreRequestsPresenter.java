@@ -1,7 +1,7 @@
 package com.ashomok.ocrme.get_more_requests;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.ashomok.ocrme.R;

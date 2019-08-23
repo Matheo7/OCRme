@@ -1,6 +1,6 @@
 package com.ashomok.ocrme.ocr_result.translate.translate_task.translate_task;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Created by iuliia on 5/22/17.

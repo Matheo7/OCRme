@@ -5,7 +5,7 @@ package com.ashomok.ocrme.main;
  */
 
 import android.app.Activity;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;

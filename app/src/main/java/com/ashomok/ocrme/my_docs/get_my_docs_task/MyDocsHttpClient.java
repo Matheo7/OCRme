@@ -1,6 +1,6 @@
 package com.ashomok.ocrme.my_docs.get_my_docs_task;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

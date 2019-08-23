@@ -4,8 +4,8 @@ package com.ashomok.ocrme.update_to_premium;
  * Created by iuliia on 2/2/18.
  */
 
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.R;
 

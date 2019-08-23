@@ -4,7 +4,7 @@ package com.ashomok.ocrme.get_more_requests;
  * Created by iuliia on 3/2/18.
  */
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.billing.model.SkuRowData;
 import com.ashomok.ocrme.di_dagger.BasePresenter;

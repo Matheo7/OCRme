@@ -1,8 +1,8 @@
 package com.ashomok.ocrme.my_docs.get_my_docs_task;
 
-import android.support.test.filters.MediumTest;
-import android.support.test.filters.SmallTest;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
 import com.ashomok.ocrme.utils.Repeat;

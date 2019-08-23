@@ -4,8 +4,8 @@ package com.ashomok.ocrme.main;
  * Created by iuliia on 2/14/18.
  */
 
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import com.annimon.stream.Optional;
 import com.ashomok.ocrme.di_dagger.BasePresenter;

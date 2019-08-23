@@ -2,10 +2,9 @@ package com.ashomok.ocrme.di_dagger;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
 
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.rate_app.RateAppAsker;
 
 import dagger.Module;
 import dagger.Provides;

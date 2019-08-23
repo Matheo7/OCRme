@@ -3,28 +3,20 @@ package com.ashomok.ocrme.crop_image;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 
-import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.Settings;
-import com.ashomok.ocrme.ocr.OcrActivity;
-import com.ashomok.ocrme.ocr.OcrActivityTest;
-
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.ashomok.ocrme.utils.FilesProvider.getTestImages;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
-import static org.junit.Assert.*;
 
 /**
  * Created by iuliia on 11/28/17.

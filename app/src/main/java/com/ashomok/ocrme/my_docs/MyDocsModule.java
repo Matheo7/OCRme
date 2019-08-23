@@ -4,7 +4,7 @@ package com.ashomok.ocrme.my_docs;
  * Created by iuliia on 12/27/17.
  */
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;

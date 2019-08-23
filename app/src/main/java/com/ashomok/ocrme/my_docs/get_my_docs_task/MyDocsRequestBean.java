@@ -1,6 +1,6 @@
 package com.ashomok.ocrme.my_docs.get_my_docs_task;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Created by iuliia on 12/19/17.

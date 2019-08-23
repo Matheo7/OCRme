@@ -1,6 +1,6 @@
 package com.ashomok.ocrme.ocr;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Created by iuliia on 5/28/17.

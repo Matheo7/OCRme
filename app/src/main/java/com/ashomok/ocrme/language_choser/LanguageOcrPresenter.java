@@ -4,8 +4,8 @@ package com.ashomok.ocrme.language_choser;
  * Created by iuliia on 11/15/17.
  */
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.ashomok.ocrme.language_choser.LanguagesListAdapter.ResponsableList;
 import com.ashomok.ocrme.language_choser.di.AllLanguageCodes;
