@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.ashomok.ocrme.utils.SplitPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scanlibrary.ocrme.utils.SplitPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:spl="http://schemas.android.com/apk/res-auto"
     android:id="@+id/split_pane_layout"
     android:layout_width="fill_parent"
@@ -11,4 +11,4 @@
     spl:splitterSize="16dip">
 
     <include layout="@layout/split_pane_content" />
-</com.ashomok.ocrme.utils.SplitPaneLayout>
+</com.scanlibrary.ocrme.utils.SplitPaneLayout>

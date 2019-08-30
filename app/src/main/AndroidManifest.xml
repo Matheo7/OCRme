@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ashomok.ocrme">
+    package="com.scanlibrary.ocrme">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name=".di_dagger.App"
+        android:name="com.scanlibrary.ocrme.di_dagger.App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,18 +30,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
         <activity
-            android:name=".main.SplashActivity"
+            android:name="com.scanlibrary.ocrme.main.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,100 +41,91 @@
         </activity>
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.scanlibrary.ocrme.main.MainActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".about.AboutActivity"
+            android:name="com.scanlibrary.ocrme.about.AboutActivity"
             android:exported="true"
             android:label="@string/about"
-            android:parentActivityName=".main.MainActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.main.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.scanlibrary.ocrme.main.MainActivity" />
         </activity>
         <activity
-            android:name=".update_to_premium.UpdateToPremiumActivity"
+            android:name="com.scanlibrary.ocrme.update_to_premium.UpdateToPremiumActivity"
             android:exported="true"
             android:label="@string/update_to_premium"
-            android:parentActivityName=".main.MainActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.main.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.scanlibrary.ocrme.main.MainActivity" />
         </activity>
         <activity
-            android:name=".my_docs.MyDocsActivity"
+            android:name="com.scanlibrary.ocrme.my_docs.MyDocsActivity"
             android:exported="true"
             android:label="@string/my_docs"
-            android:parentActivityName=".main.MainActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.main.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.scanlibrary.ocrme.main.MainActivity" />
         </activity>
         <activity
-            android:name=".get_more_requests.GetMoreRequestsActivity"
+            android:name="com.scanlibrary.ocrme.get_more_requests.GetMoreRequestsActivity"
             android:exported="true"
             android:label="@string/get_free_requests"
-            android:parentActivityName=".main.MainActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.main.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.scanlibrary.ocrme.main.MainActivity" />
         </activity>
+
         <activity
-            android:name=".crop_image.CropImageActivity"
-            android:exported="true"
-            android:label="@string/crop"
-            android:parentActivityName=".main.MainActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
-        </activity>
-        <activity
-            android:name=".language_choser.LanguageOcrActivity"
+            android:name="com.scanlibrary.ocrme.language_choser.LanguageOcrActivity"
             android:exported="true"
             android:label="@string/language_label"
-            android:parentActivityName=".main.MainActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.main.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.scanlibrary.ocrme.main.MainActivity" />
         </activity>
         <activity
-            android:name=".ocr_result.translate.TranslateActivity"
+            android:name="com.scanlibrary.ocrme.ocr_result.translate.TranslateActivity"
             android:exported="true"
             android:label="@string/translate"
-            android:parentActivityName=".ocr_result.OcrResultActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.ocr_result.OcrResultActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ocr_result.OcrResultActivity" />
+                android:value="com.scanlibrary.ocrme.ocr_result.OcrResultActivity" />
         </activity>
         <activity
-            android:name=".ocr_result.OcrResultActivity"
+            android:name="com.scanlibrary.ocrme.ocr_result.OcrResultActivity"
             android:exported="true"
             android:label="@string/result"
             android:launchMode="singleTop"
-            android:parentActivityName=".main.MainActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.main.MainActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.scanlibrary.ocrme.main.MainActivity" />
         </activity>
         <activity
-            android:name=".ocr.OcrActivity"
+            android:name="com.scanlibrary.ocrme.ocr.OcrActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:noHistory="true"
-            android:parentActivityName=".main.MainActivity"
+            android:parentActivityName="com.scanlibrary.ocrme.main.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="com.scanlibrary.ocrme.main.MainActivity" />
 
         </activity>
     </application>
