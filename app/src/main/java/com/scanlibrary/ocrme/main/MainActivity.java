@@ -33,6 +33,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.scanlibrary.ScanConstants;
 import com.scanlibrary.ocrme.BuildConfig;
 import com.scanlibrary.ocrme.ExitDialogFragment;
 import com.scanlibrary.ocrme.R;
@@ -232,7 +233,10 @@ public class MainActivity extends AuthUiActivity implements
 
     private void startCropImageActivity(Uri uri) {
         Intent intent = new Intent(this, ScanActivity.class);
-        intent.putExtra(ScanActivity.EXTRA_IMAGE_URI, uri);
+
+        intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, ScanConstants.OPEN_MEDIA);//todo commit
+
+//        intent.putExtra(ScanActivity.EXTRA_IMAGE_URI, uri); //todo uncommit
         if (mPresenter.getLanguageCodes().isPresent()) {
             intent.putStringArrayListExtra(
                     OcrActivity.EXTRA_LANGUAGES, new ArrayList<>(mPresenter.getLanguageCodes().get()));

@@ -130,7 +130,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:18.1.1'
     implementation 'com.google.firebase:firebase-analytics:17.1.0'
 
-    implementation project(':cropimagelib')
+    implementation project(':scanlibrary')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
