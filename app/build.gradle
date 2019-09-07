@@ -58,6 +58,16 @@ dependencies {
     testImplementation "org.robolectric:multidex:3.4.2"
     testImplementation group: 'org.robolectric', name: 'playservices', version: '3.4.1'
 
+    // Espresso UI Testing
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
     testImplementation 'androidx.test:monitor:1.2.0'
     testImplementation 'org.mockito:mockito-core:2.28.2'
     androidTestImplementation 'org.mockito:mockito-core:2.28.2'
@@ -77,12 +87,12 @@ dependencies {
     //pdf view
     implementation 'com.github.barteksc:android-pdf-viewer:2.6.1'
 
-//    //image cropper
-//    implementation 'androidx.exifinterface:exifinterface:1.0.0'
-//    implementation('com.theartofdev.edmodo:android-image-cropper:2.5.1') {
-//        // Necessary to avoid version conflicts
-//        exclude group: 'com.android.support', module: 'exifinterface'
-//    }
+    //image cropper
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation('com.theartofdev.edmodo:android-image-cropper:2.5.1') {
+        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'exifinterface'
+    }
 
     //http client
     implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.4.0'

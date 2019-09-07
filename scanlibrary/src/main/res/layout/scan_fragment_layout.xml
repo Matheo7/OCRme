@@ -37,12 +37,12 @@
                 android:adjustViewBounds="true" />
         </FrameLayout>
 
-        <com.scanlibrary.PolygonView
+        <com.ashomok.PolygonView
             android:id="@+id/polygonView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:visibility="gone"></com.scanlibrary.PolygonView>
+            android:visibility="gone"></com.ashomok.PolygonView>
     </FrameLayout>
 
 
