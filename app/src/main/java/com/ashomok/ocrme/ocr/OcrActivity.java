@@ -205,7 +205,7 @@ public class OcrActivity extends RxAppCompatActivity {
             ImageView imageView = findViewById(R.id.image);
 
             if (imageUrl != null) { //uploaded
-                //called only from SimpleCropFragment when Language Changed and ocr re-run.
+                //called only from AdvancedCropFragment when Language Changed and ocr re-run.
                 //init image for uploaded source - url
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
