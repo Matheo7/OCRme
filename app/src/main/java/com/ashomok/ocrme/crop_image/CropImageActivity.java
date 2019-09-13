@@ -1,108 +1,105 @@
 package com.ashomok.ocrme.crop_image;
 
+import android.Manifest;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.ViewGroup;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.ashomok.ocrme.R;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.tabs.TabLayout;
+import com.ashomok.ocrme.ocr.OcrActivity;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import dagger.android.support.DaggerAppCompatActivity;
+import java.util.UUID;
 
 import static com.ashomok.ocrme.ocr.OcrActivity.EXTRA_LANGUAGES;
+import static com.ashomok.ocrme.utils.FileUtils.createFileForUri;
+import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
+import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showWarning;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 /**
- * Created by iuliia on 5/30/17.
+ * Created by iuliia on 11/28/17.
  */
-public class CropImageActivity
-        extends DaggerAppCompatActivity implements CropImageContract.View {
+
+public class CropImageActivity extends AppCompatActivity
+        implements CropImageView.OnCropImageCompleteListener {
+
+    public static final String EXTRA_IMAGE_URI = "com.ashomokdev.imagetotext.crop_image.IMAGE_URI";
     private static final String TAG = DEV_TAG + CropImageActivity.class.getSimpleName();
+    private final static String cropped_file_extension = ".jpg";
+    private CropImageView mCropImageView;
     private Uri imageUri;
     private ArrayList<String> sourceLanguageCodes;
-    public static final String EXTRA_IMAGE_URI = "com.ashomokdev.imagetotext.crop_image.IMAGE_URI";
-
-    @Inject
-    CropImageContract.Presenter mPresenter;
+    private FloatingActionButton cropBtn;
+    private String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private String cropped_filename;
+    private View mRootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_crop_image);
+        initToolbar();
+
+        mCropImageView = findViewById(R.id.cropImageView);
+        mCropImageView.setOnCropImageCompleteListener(this);
 
         imageUri = getIntent().getParcelableExtra(EXTRA_IMAGE_URI);
         sourceLanguageCodes = getIntent().getStringArrayListExtra(EXTRA_LANGUAGES);
 
-        setContentView(R.layout.activity_crop_image);
-        initToolbar();
+        mCropImageView.setImageUriAsync(imageUri);
+        cropBtn = findViewById(R.id.crop_btn);
+        mRootView = findViewById(R.id.root_view);
 
-        initTabLayout();
-        fixCoordinatorLayout();
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.setLogging(true);
 
-        mPresenter.takeView(this);
+        RxView.clicks(cropBtn)
+                .compose(rxPermissions.ensureEach(permission))
+                .subscribe(permission -> {
+                    if (permission.granted) {
+                        try {
+                            //todo delete cropped file when processed
+                            cropped_filename = UUID.randomUUID().toString() + cropped_file_extension;
+                            mCropImageView.saveCroppedImageAsync(
+                                    createFileForUri(cropped_filename, this));
+                        } catch (Exception e) {
+                            showError(e.getMessage(), mRootView);
+                        }
+                    } else if (permission.shouldShowRequestPermissionRationale) {
+                        showWarning(R.string.needs_to_save, mRootView);
+                    } else {
+                        showWarning(R.string.this_option_is_not_be_avalible, mRootView);
+                    }
+                }, throwable -> {
+                    showError(throwable.getMessage(), mRootView);
+                });
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.dropView();  //prevent leaking activity in
-        // case presenter is orchestrating a long running task
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.crop_image, menu);
+        return true;
     }
 
-    /**
-     * fix of issue - Android - footer scrolls off screen when used in CoordinatorLayout
-     * https://stackoverflow.com/questions/30777698/android-footer-scrolls-off-screen-when-used-in-coordinatorlayout
-     */
-
-    //todo check is deprecated
-    private void fixCoordinatorLayout() {
-        AppBarLayout appBarLayout = findViewById(R.id.appbar);
-        ViewPager contentLayout = findViewById(R.id.pager);
-        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            ViewGroup.MarginLayoutParams layoutParams =
-                    (ViewGroup.MarginLayoutParams) contentLayout.getLayoutParams();
-            layoutParams.setMargins(
-                    0, 0, 0, appBarLayout1.getMeasuredHeight() / 2 + verticalOffset);
-            contentLayout.requestLayout();
-        });
-    }
-
-    private void initTabLayout() {
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.simple)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.advanced)));
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = findViewById(R.id.pager);
-        final MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), imageUri);
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.main_action_rotate) {
+            mCropImageView.rotateImage(90);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initToolbar() {
@@ -118,5 +115,34 @@ public class CropImageActivity
             //save data if you need here
             finish();
         });
+    }
+
+    @Override
+    public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
+        handleCropResult(result);
+    }
+
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    private void handleCropResult(CropImageView.CropResult result) {
+        if (result.getError() == null) {
+            Intent intent = new Intent(this, OcrActivity.class);
+            if (result.getUri() != null) {
+
+                intent.putExtra(OcrActivity.EXTRA_IMAGE_URI, result.getUri());
+                intent.putStringArrayListExtra(OcrActivity.EXTRA_LANGUAGES, sourceLanguageCodes);
+
+                startActivity(intent);
+                finish();
+            } else {
+                showError(R.string.unknown_error, mRootView);
+            }
+        } else {
+            String errorMessage = result.getError().getMessage();
+            if (errorMessage != null && errorMessage.length() > 0) {
+                showError(errorMessage, mRootView);
+            } else {
+                showError(R.string.unknown_error, mRootView);
+            }
+        }
     }
 }
