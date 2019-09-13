@@ -1,13 +1,6 @@
 package com.ashomok.ocrme.crop_image;
 
-import android.app.Activity;
-import android.app.DialogFragment;
-import android.os.Handler;
-
 import androidx.annotation.Nullable;
-
-import com.ashomok.ocrme.rate_app.RateAppAsker;
-import com.ashomok.ocrme.rate_app.RateAppAskerCallback;
 
 import javax.inject.Inject;
 

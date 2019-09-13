@@ -1,58 +1,38 @@
 package com.ashomok.ocrme.crop_image.tab_fragments.advanced;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
-import com.ashomok.IScanner;
-import com.ashomok.PolygonView;
-import com.ashomok.ProgressDialogFragment;
-import com.ashomok.ScanActivity;
-import com.ashomok.ScanConstants;
-import com.ashomok.ScanFragment;
-import com.ashomok.SingleButtonDialogFragment;
-import com.ashomok.Utils;
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.ocr.OcrActivity;
-import com.jakewharton.rxbinding2.view.RxView;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.ashomok.ocrme.crop_image.tab_fragments.advanced.utils.PolygonView;
+import com.ashomok.ocrme.crop_image.tab_fragments.advanced.utils.ProgressDialogFragment;
+import com.ashomok.ocrme.crop_image.tab_fragments.advanced.utils.SingleButtonDialogFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerFragment;
-
-import static com.ashomok.ocrme.utils.FileUtils.createFileForUri;
-import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
-import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showWarning;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class AdvancedCropFragment extends DaggerFragment {
 
@@ -60,66 +40,51 @@ public class AdvancedCropFragment extends DaggerFragment {
     AdvacedCropContract.Presenter presenter;
 
     private Button scanButton;
+    private Uri imageUri;
+    public static final String EXTRA_IMAGE_URI = "com.ashomokdev.imagetotext.crop_image.IMAGE_URI";
     private ImageView sourceImageView;
     private FrameLayout sourceFrame;
     private PolygonView polygonView;
-    private View view;
     private ProgressDialogFragment progressDialogFragment;
-    private IScanner scanner;
-    private Bitmap original;
+    private Bitmap bitmap;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof IScanner)) {
-            throw new ClassCastException("Activity must implement IScanner");
-        }
-        this.scanner = (IScanner) activity;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(com.ashomok.R.layout.scan_fragment_layout, null);
-        init();
+        View view = inflater.inflate(R.layout.crop_image_advanced_fragment, container, false);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            imageUri = bundle.getParcelable(EXTRA_IMAGE_URI);
+        }
+
+        sourceImageView = view.findViewById(R.id.sourceImageView);
+        scanButton = view.findViewById(R.id.scanButton);
+        scanButton.setOnClickListener(new AdvancedCropFragment.ScanButtonClickListener());
+        sourceFrame = view.findViewById(R.id.sourceFrame);
+        polygonView = view.findViewById(R.id.polygonView);
+        sourceFrame.post(() -> {
+            bitmap = getBitmap(imageUri);
+            if (bitmap != null) {
+                setBitmap(bitmap);
+            }
+        });
+        
         return view;
     }
 
-    public AdvancedCropFragment() {
-
+    private Bitmap getBitmap(Context context, Uri uri) throws IOException {
+        return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
     }
 
-    private void init() {
-        sourceImageView = (ImageView) view.findViewById(com.ashomok.R.id.sourceImageView);
-        scanButton = (Button) view.findViewById(com.ashomok.R.id.scanButton);
-        scanButton.setOnClickListener(new AdvancedCropFragment.ScanButtonClickListener());
-        sourceFrame = (FrameLayout) view.findViewById(com.ashomok.R.id.sourceFrame);
-        polygonView = (PolygonView) view.findViewById(com.ashomok.R.id.polygonView);
-        sourceFrame.post(new Runnable() {
-            @Override
-            public void run() {
-                original = getBitmap();
-                if (original != null) {
-                    setBitmap(original);
-                }
-            }
-        });
-    }
-
-    private Bitmap getBitmap() {
-        Uri uri = getUri();
+    private Bitmap getBitmap(Uri imageUri) {
         try {
-            Bitmap bitmap = Utils.getBitmap(getActivity(), uri);
-//            getActivity().getContentResolver().delete(uri, null, null);
+            Bitmap bitmap = getBitmap(getActivity(), imageUri);
+//            getActivity().getContentResolver().delete(uri, null, null); //todo clear resourses
             return bitmap;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private Uri getUri() {
-        Uri uri = getArguments().getParcelable(ScanConstants.SELECTED_BITMAP);
-        return uri;
     }
 
     private void setBitmap(Bitmap original) {
@@ -129,8 +94,10 @@ public class AdvancedCropFragment extends DaggerFragment {
         Map<Integer, PointF> pointFs = getEdgePoints(tempBitmap);
         polygonView.setPoints(pointFs);
         polygonView.setVisibility(View.VISIBLE);
-        int padding = (int) getResources().getDimension(com.ashomok.R.dimen.scanPadding);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(tempBitmap.getWidth() + 2 * padding, tempBitmap.getHeight() + 2 * padding);
+        int padding = (int) getResources().getDimension(R.dimen.scanPadding);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                        tempBitmap.getWidth() + 2 * padding,
+                        tempBitmap.getHeight() + 2 * padding);
         layoutParams.gravity = Gravity.CENTER;
         polygonView.setLayoutParams(layoutParams);
     }
@@ -142,7 +109,12 @@ public class AdvancedCropFragment extends DaggerFragment {
     }
 
     private List<PointF> getContourEdgePoints(Bitmap tempBitmap) {
-        float[] points = ((ScanActivity) getActivity()).getPoints(tempBitmap);  //public native float[] getPoints(Bitmap bitmap);
+
+        float[] points = {272, 282, 583, 540, 77, 511, 466, 86};
+
+//                ((ScanActivity) getActivity()).getPoints(tempBitmap);  //todo call rest api //public native float[] getPoints(Bitmap bitmap);
+
+//        float[] points = ((ScanActivity) getActivity()).getPoints(tempBitmap);  //todo call rest api //public native float[] getPoints(Bitmap bitmap);
         float x1 = points[0];
         float x2 = points[1];
         float x3 = points[2];
@@ -183,7 +155,7 @@ public class AdvancedCropFragment extends DaggerFragment {
         public void onClick(View v) {
             Map<Integer, PointF> points = polygonView.getPoints();
             if (isScanPointsValid(points)) {
-                new AdvancedCropFragment.ScanAsyncTask(points).execute();
+//                new AdvancedCropFragment.ScanAsyncTask(points).execute();//todo save and reuse asanned image
             } else {
                 showErrorDialog();
             }
@@ -191,7 +163,7 @@ public class AdvancedCropFragment extends DaggerFragment {
     }
 
     private void showErrorDialog() {
-        SingleButtonDialogFragment fragment = new SingleButtonDialogFragment(com.ashomok.R.string.ok, getString(com.ashomok.R.string.cantCrop), "Error", true);
+        SingleButtonDialogFragment fragment = new SingleButtonDialogFragment(R.string.ok, getString(R.string.cantCrop), "Error", true);
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fragment.show(fm, SingleButtonDialogFragment.class.toString());
     }
@@ -206,54 +178,57 @@ public class AdvancedCropFragment extends DaggerFragment {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
     }
 
-    private Bitmap getScannedBitmap(Bitmap original, Map<Integer, PointF> points) {
-        int width = original.getWidth();
-        int height = original.getHeight();
-        float xRatio = (float) original.getWidth() / sourceImageView.getWidth();
-        float yRatio = (float) original.getHeight() / sourceImageView.getHeight();
 
-        float x1 = (points.get(0).x) * xRatio;
-        float x2 = (points.get(1).x) * xRatio;
-        float x3 = (points.get(2).x) * xRatio;
-        float x4 = (points.get(3).x) * xRatio;
-        float y1 = (points.get(0).y) * yRatio;
-        float y2 = (points.get(1).y) * yRatio;
-        float y3 = (points.get(2).y) * yRatio;
-        float y4 = (points.get(3).y) * yRatio;
-        Log.d("", "POints(" + x1 + "," + y1 + ")(" + x2 + "," + y2 + ")(" + x3 + "," + y3 + ")(" + x4 + "," + y4 + ")");
-        Bitmap _bitmap = ((ScanActivity) getActivity()).getScannedBitmap(original, x1, y1, x2, y2, x3, y3, x4, y4);
-        return _bitmap;
-    }
 
-    private class ScanAsyncTask extends AsyncTask<Void, Void, Bitmap> {
+//    private Bitmap getScannedBitmap(Bitmap original, Map<Integer, PointF> points) {
+//        int width = original.getWidth();
+//        int height = original.getHeight();
+//        float xRatio = (float) original.getWidth() / sourceImageView.getWidth();
+//        float yRatio = (float) original.getHeight() / sourceImageView.getHeight();
+//
+//        float x1 = (points.get(0).x) * xRatio;
+//        float x2 = (points.get(1).x) * xRatio;
+//        float x3 = (points.get(2).x) * xRatio;
+//        float x4 = (points.get(3).x) * xRatio;
+//        float y1 = (points.get(0).y) * yRatio;
+//        float y2 = (points.get(1).y) * yRatio;
+//        float y3 = (points.get(2).y) * yRatio;
+//        float y4 = (points.get(3).y) * yRatio;
+//        Log.d("", "POints(" + x1 + "," + y1 + ")(" + x2 + "," + y2 + ")(" + x3 + "," + y3 + ")(" + x4 + "," + y4 + ")");
+//        Bitmap _bitmap = ((ScanActivity) getActivity())
+//                .getScannedBitmap(original, x1, y1, x2, y2, x3, y3, x4, y4);
+//        return _bitmap;
+//    }
 
-        private Map<Integer, PointF> points;
-
-        public ScanAsyncTask(Map<Integer, PointF> points) {
-            this.points = points;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            showProgressDialog(getString(com.ashomok.R.string.scanning));
-        }
-
-        @Override
-        protected Bitmap doInBackground(Void... params) {
-            Bitmap bitmap =  getScannedBitmap(original, points);
-            Uri uri = Utils.getUri(getActivity(), bitmap);
-            scanner.onScanFinish(uri);
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            bitmap.recycle();
-            dismissDialog();
-        }
-    }
+//    private class ScanAsyncTask extends AsyncTask<Void, Void, Bitmap> {
+//
+//        private Map<Integer, PointF> points;
+//
+//        public ScanAsyncTask(Map<Integer, PointF> points) {
+//            this.points = points;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            showProgressDialog(getString(R.string.scanning));
+//        }
+//
+//        @Override
+//        protected Bitmap doInBackground(Void... params) {
+//            Bitmap bitmap =  getScannedBitmap(AdvancedCropFragment.this.bitmap, points);
+//            Uri uri = Utils.getUri(getActivity(), bitmap);
+//            scanner.onScanFinish(uri);
+//            return bitmap;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Bitmap bitmap) {
+//            super.onPostExecute(bitmap);
+//            bitmap.recycle();
+//            dismissDialog();
+//        }
+//    }
 
     protected void showProgressDialog(String message) {
         progressDialogFragment = new ProgressDialogFragment(message);

@@ -207,4 +207,6 @@
     <string name="simple">Simple</string>
     <string name="advanced">Advanced</string>
     <string name="save">Save</string>
+    <string name="scan">Scan</string>
+    <string name="cantCrop">Can\'t crop</string>
 </resources>

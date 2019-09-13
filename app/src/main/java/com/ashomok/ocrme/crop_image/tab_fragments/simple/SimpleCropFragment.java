@@ -1,44 +1,19 @@
 package com.ashomok.ocrme.crop_image.tab_fragments.simple;
 
 import android.Manifest;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.language_choser.LanguageOcrActivity;
 import com.ashomok.ocrme.ocr.OcrActivity;
-import com.ashomok.ocrme.ocr_result.tab_fragments.text.translate.TranslateActivity;
-import com.ashomok.ocrme.utils.GlideApp;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -50,11 +25,6 @@ import javax.inject.Inject;
 
 import dagger.android.support.DaggerFragment;
 
-import static android.app.Activity.RESULT_OK;
-import static android.content.Context.CLIPBOARD_SERVICE;
-import static com.ashomok.ocrme.Settings.appPackageName;
-import static com.ashomok.ocrme.language_choser.LanguageOcrActivity.CHECKED_LANGUAGE_CODES;
-import static com.ashomok.ocrme.ocr.OcrActivity.EXTRA_LANGUAGES;
 import static com.ashomok.ocrme.utils.FileUtils.createFileForUri;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showWarning;

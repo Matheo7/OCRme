@@ -138,7 +138,7 @@ public class TranslatePresenter implements TranslateContract.Presenter {
                 .subscribe(
                         myData -> {
                             Log.d(TAG,
-                                    "SupportedLanguagesResponse + TranslateResponse zipped returns "
+                                    "ContourEdgePointsResponse + TranslateResponse zipped returns "
                                             + myData.toString());
                             updateUI(myData);
                         },
