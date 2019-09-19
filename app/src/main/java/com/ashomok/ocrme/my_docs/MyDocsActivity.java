@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -30,7 +32,6 @@ import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
 import com.ashomok.ocrme.ocr_result.OcrResultActivity;
 import com.ashomok.ocrme.utils.AlertDialogHelper;
 import com.ashomok.ocrme.utils.AutoFitGridLayoutManager;
-import com.ashomok.ocrme.utils.EndlessRecyclerViewScrollListener;
 import com.ashomok.ocrme.utils.InfoSnackbarUtil;
 
 import java.util.ArrayList;
@@ -65,7 +66,6 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
     private RecyclerViewAdapter adapter;
     private ActionMode mActionMode;
     private ProgressBar progress;
-    private EndlessRecyclerViewScrollListener scrollListener;
 
     //"Select" docs action mode
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
@@ -286,18 +286,46 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
 
         adapter = new RecyclerViewAdapter(dataList, multiSelectDataList, callback);
         recyclerView.setAdapter(adapter);
-        scrollListener =
-                new EndlessRecyclerViewScrollListener(layoutManager) {
-                    @Override
-                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                        Log.d(TAG, "onLoadMore");
-                        // Triggered only when new data needs to be appended to the list
-                        // Add whatever code is needed to append new items to the bottom of the list
-                        mPresenter.loadMoreDocs();
-                    }
-                };
-        // Adds the scroll listener to RecyclerView
-        recyclerView.addOnScrollListener(scrollListener);
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (! recyclerView.canScrollVertically(1)){ //1 for down
+                    mPresenter.loadMoreDocs();
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        scrollListener =
+//                new EndlessRecyclerViewScrollListener(layoutManager) {
+//                    @Override
+//                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+//                        Log.d(TAG, "onLoadMore");
+//                        // Triggered only when new data needs to be appended to the list
+//                        // Add whatever code is needed to append new items to the bottom of the list
+//                        mPresenter.loadMoreDocs();
+//                    }
+//                };
+//        // Adds the scroll listener to RecyclerView
+//        recyclerView.addOnScrollListener(scrollListener);
     }
 
     private void startOcrResultActivity(OcrResponse data) {

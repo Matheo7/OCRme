@@ -135,8 +135,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
                     httpClient.getMyDocs(idToken, startCursor);
 
             view.showProgress(true);
-            myDocs
-                    .subscribeOn(Schedulers.io())
+            myDocs.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             myDocsResponse -> {
@@ -258,11 +257,10 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
         }
     }
 
-
     @Override
     public void showAdsIfNeeded(List<Object> dataList, RecyclerViewAdapter adapter) {
         if (Settings.isAdsActive &&
-                dataList.size() > 10 &&
+                dataList.size() > 1 &&
                 nativeAdSet.size() > 0) {
 
             int adsPresentedCount = 0;
@@ -275,7 +273,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
             if (adsPresentedCount * 10 < dataList.size()){
                 //add ads
                 int random = (int )(Math.random() * 2 + 1); //1 or 2 random
-                int position = adsPresentedCount * 10 + random;
+                int position = dataList.size() - random;
                 Log.d(TAG, "Native ad added to position: " + position+ " adsPresentedCount: "
                         + adsPresentedCount + " dataList size: " + dataList.size());
 
