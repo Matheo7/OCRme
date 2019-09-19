@@ -7,8 +7,11 @@ package com.ashomok.ocrme.my_docs;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -17,12 +20,22 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
+import com.ashomok.ocrme.ad.AdContainer;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsResponse;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
 import com.ashomok.ocrme.utils.NetworkUtils;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.VideoOptions;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -55,24 +68,31 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
     private String idToken;
     private String startCursor;
     private boolean initialized = false;
+    private Set<UnifiedNativeAd> nativeAdSet;
+    private AdContainer adMobContainer;
+
 
     /**
      * Dagger strictly enforces that arguments not marked with {@code @Nullable} are not injected
      * with {@code @Nullable} values.
      */
     @Inject
-    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient) {
+    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient, AdContainer adMobContainer) {
         this.context = context;
         this.httpClient = checkNotNull(httpClient);
+        this.adMobContainer = adMobContainer;
     }
 
     @Override
     public void takeView(MyDocsContract.View myDocsActivity) {
         view = myDocsActivity;
-        initWithDocs();
+        if (Settings.isAdsActive) {
+            nativeAdSet = adMobContainer.loadNativeAdAsync();
+        }
     }
 
     void initWithDocs() {
+        Log.d(TAG, "on initWithDocs");
         if (view != null) {
             if (!initialized) {
                 if (isOnline()) {
@@ -172,7 +192,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
     // This method probably sends out a network request and appends new data items to your adapter.
     @Override
     public void loadMoreDocs() {
-        Log.d(TAG, "loadMoreDocs called");
+        Log.d(TAG, "on loadMoreDocs");
         if (view != null) {
             if (isOnline()) {
                 if (!isLoadingCompleted()) {
@@ -238,11 +258,31 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
         }
     }
 
+
     @Override
-    public void showAdsIfNeeded() {
-        if (Settings.isAdsActive) {
-            if (view != null) {
-                view.showAds();
+    public void showAdsIfNeeded(List<Object> dataList, RecyclerViewAdapter adapter) {
+        if (Settings.isAdsActive &&
+                dataList.size() > 10 &&
+                nativeAdSet.size() > 0) {
+
+            int adsPresentedCount = 0;
+            for (Object item : dataList) {
+                if (item instanceof UnifiedNativeAd) {
+                    adsPresentedCount++;
+                }
+            }
+
+            if (adsPresentedCount * 10 < dataList.size()){
+                //add ads
+                int random = (int )(Math.random() * 2 + 1); //1 or 2 random
+                int position = adsPresentedCount * 10 + random;
+                Log.d(TAG, "Native ad added to position: " + position+ " adsPresentedCount: "
+                        + adsPresentedCount + " dataList size: " + dataList.size());
+
+                UnifiedNativeAd adItem = nativeAdSet.iterator().next();
+                dataList.add(position, adItem);
+                nativeAdSet.remove(adItem);
+                adapter.notifyDataSetChanged();
             }
         }
     }

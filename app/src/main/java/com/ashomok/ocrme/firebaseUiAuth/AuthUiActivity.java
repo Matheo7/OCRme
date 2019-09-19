@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.ashomok.ocrme.R;
+import com.ashomok.ocrme.my_docs.MyDocsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.AuthUI.IdpConfig;
 import com.firebase.ui.auth.ErrorCodes;
@@ -41,7 +42,7 @@ import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showInfo;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public abstract class AuthUiActivity extends AppCompatActivity {
-    private static final String TAG =  DEV_TAG +"AuthUiActivity";
+    private static final String TAG =  DEV_TAG + AuthUiActivity.class.getSimpleName();;
 
  private static final String FIREBASE_TOS_URL = "https://firebase.google.com/terms/";
  private static final String FIREBASE_PRIVACY_POLICY_URL = "https://firebase.google.com/terms/analytics/#7_privacy";
@@ -83,14 +84,20 @@ public abstract class AuthUiActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        Log.d(TAG, "onResume");
         super.onResume();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null && auth.getCurrentUser().getEmail() != null) {
-            onSignedIn();
+            restoreSignInStatus(); //restore after screen rotation etc
         }
     }
 
+    private void restoreSignInStatus() {
+        onSignedIn(); //todo set another way to save signed in status
+    }
+
     private void handleSignInResponse(int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "on handleSignInResponse");
         IdpResponse response = IdpResponse.fromResultIntent(data);
 
         // Successfully signed in

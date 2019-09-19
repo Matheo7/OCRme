@@ -29,8 +29,6 @@ public interface MyDocsContract {
         void showProgress(final boolean show);
 
         void startActivity(Intent intent);
-
-        void showAds();
     }
 
     interface Presenter extends BasePresenter<MyDocsContract.View> {
@@ -40,6 +38,6 @@ public interface MyDocsContract {
 
         void onSharePdfClicked(String mDownloadURL);
 
-        void showAdsIfNeeded();
+        void showAdsIfNeeded(List<Object> dataList, RecyclerViewAdapter adapter);
     }
 }

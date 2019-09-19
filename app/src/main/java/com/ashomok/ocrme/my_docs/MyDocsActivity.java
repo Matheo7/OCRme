@@ -6,9 +6,12 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -18,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.annimon.stream.Stream;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.ad.AdMobContainerImpl;
 import com.ashomok.ocrme.firebaseUiAuth.AuthUiActivity;
@@ -43,9 +47,8 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
  * Created by iuliia on 8/18/17.
  */
 
-//todo don't reload list when onback clicked
+//todo don't reload list when onback clicked or screen rotated  - use some cache solution
 //todo stranje scroll animation when load more - looks like ылетает влево и появляется снова
-//todo bug - scroll automaticaly to the top if contains 9 pc docs.
 
 public class MyDocsActivity extends AuthUiActivity implements View.OnClickListener, MyDocsContract.View {
 
@@ -53,12 +56,11 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
     private static final String TAG = DEV_TAG + MyDocsActivity.class.getSimpleName();
     boolean isMultiSelect = false;
     AlertDialogHelper alertDialogHelper;
-    @Inject
-    AdMobContainerImpl adMobContainer;
+
     @Inject
     MyDocsPresenter mPresenter;
 
-    private List<OcrResult> dataList;
+    private List<Object> dataList;
     private List<OcrResult> multiSelectDataList;
     private RecyclerViewAdapter adapter;
     private ActionMode mActionMode;
@@ -113,8 +115,10 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
             if (isMultiSelect) {
                 onMultiSelect(position);
             } else {
-                OcrResult doc = dataList.get(position);
-                startOcrResultActivity(new OcrResponse(doc, OcrResponse.Status.OK));
+                if (dataList.get(position) instanceof OcrResult) {
+                    OcrResult doc = (OcrResult) dataList.get(position);
+                    startOcrResultActivity(new OcrResponse(doc, OcrResponse.Status.OK));
+                }
             }
         }
 
@@ -126,23 +130,30 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
 
         @Override
         public void onItemDelete(int position) {
-            multiSelectDataList.add(dataList.get(position));
-            mPresenter.deleteDocs(multiSelectDataList);
-            multiSelectDataList.clear();
+            if (dataList.get(position) instanceof OcrResult) {
+                OcrResult doc = (OcrResult) dataList.get(position);
+                multiSelectDataList.add(doc);
+                mPresenter.deleteDocs(multiSelectDataList);
+                multiSelectDataList.clear();
+            }
         }
 
         @Override
         public void onItemShareText(int position) {
-            OcrResult doc = dataList.get(position);
-            String textResult = doc.getTextResult();
-            mPresenter.onShareTextClicked(textResult);
+            if (dataList.get(position) instanceof OcrResult) {
+                OcrResult doc = (OcrResult) dataList.get(position);
+                String textResult = doc.getTextResult();
+                mPresenter.onShareTextClicked(textResult);
+            }
         }
 
         @Override
         public void onItemSharePdf(int position) {
-            OcrResult doc = dataList.get(position);
-            String mDownloadURL = doc.getPdfResultMediaUrl();
-            mPresenter.onSharePdfClicked(mDownloadURL);
+            if (dataList.get(position) instanceof OcrResult) {
+                OcrResult doc = (OcrResult) dataList.get(position);
+                String mDownloadURL = doc.getPdfResultMediaUrl();
+                mPresenter.onSharePdfClicked(mDownloadURL);
+            }
         }
     };
 
@@ -157,7 +168,6 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
         initRecyclerView();
 
         progress = findViewById(R.id.progress);
-        updateUi(mIsUserSignedIn);
 
         mPresenter.takeView(this);
     }
@@ -171,7 +181,6 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         menu.findItem(R.id.select).setVisible(dataList.size() > 0);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -254,7 +263,10 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
             if (multiSelectDataList.contains(dataList.get(position))) {
                 multiSelectDataList.remove(dataList.get(position));
             } else {
-                multiSelectDataList.add(dataList.get(position));
+                if (dataList.get(position) instanceof OcrResult) {
+                    OcrResult doc = (OcrResult) dataList.get(position);
+                    multiSelectDataList.add(doc);
+                }
             }
             mActionMode.setTitle(multiSelectDataList.size() + getString(R.string.selected));
 
@@ -278,6 +290,7 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
                 new EndlessRecyclerViewScrollListener(layoutManager) {
                     @Override
                     public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                        Log.d(TAG, "onLoadMore");
                         // Triggered only when new data needs to be appended to the list
                         // Add whatever code is needed to append new items to the bottom of the list
                         mPresenter.loadMoreDocs();
@@ -307,7 +320,9 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
 
     private void selectAll(ActionMode mode) {
         multiSelectDataList.clear();
-        multiSelectDataList.addAll(dataList);
+        multiSelectDataList.addAll(Stream.of(dataList)
+                .filter(l -> l instanceof OcrResult)
+                .map(l -> (OcrResult) l).toList());
 
         mode.setTitle(multiSelectDataList.size() + getString(R.string.selected));
 
@@ -378,10 +393,9 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
             //show empty view
             View emptyView = findViewById(R.id.empty_result_layout);
             emptyView.setVisibility(View.VISIBLE);
+        } else {
+            mPresenter.showAdsIfNeeded(dataList, adapter);
         }
-
-        mPresenter.showAdsIfNeeded();
-
         invalidateOptionsMenu();
     }
 
@@ -414,11 +428,6 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
                 progress.setVisibility(show ? View.VISIBLE : View.GONE);
             }
         });
-    }
-
-    @Override
-    public void showAds() {
-        adMobContainer.initBottomBannerAd(findViewById(R.id.ads_container));
     }
 
     interface RecyclerViewCallback {

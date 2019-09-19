@@ -36,7 +36,7 @@ public class LoginToSystemDelegate extends UiFreeOptionManagingDelegate {
 
     @Override
     protected void startTask() {
-        Log.d(TAG, "onstartTask");
+        Log.d(TAG, "onStartTask");
         saveData();
         activity.signIn();
 

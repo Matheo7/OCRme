@@ -114,8 +114,6 @@ public class MainActivity extends AuthUiActivity implements
         initLanguageViews();
         initMyDocsView();
 
-        updateUi(mIsUserSignedIn);
-
         mPresenter.takeView(this);
     }
 
@@ -229,19 +227,6 @@ public class MainActivity extends AuthUiActivity implements
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
-
-//    private void startCropImageActivity(Uri uri) {
-//        Intent intent = new Intent(this, ScanActivity.class);
-//
-//        intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, ScanConstants.OPEN_MEDIA);//todo commit
-//
-////        intent.putExtra(ScanActivity.EXTRA_IMAGE_URI, uri); //todo uncommit
-//        if (mPresenter.getLanguageCodes().isPresent()) {
-//            intent.putStringArrayListExtra(
-//                    OcrActivity.EXTRA_LANGUAGES, new ArrayList<>(mPresenter.getLanguageCodes().get()));
-//        }
-//        startActivityForResult(intent, OCR_Activity_REQUEST_CODE);
-//    }
 
     private void startCropImageActivity(Uri uri) {
         Intent intent = new Intent(this, CropImageActivity.class);

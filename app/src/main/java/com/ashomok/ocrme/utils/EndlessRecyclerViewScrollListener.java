@@ -1,11 +1,15 @@
 package com.ashomok.ocrme.utils;
 
+import android.util.Log;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+
+//todo stranje scroll animation when load more - looks like ылетает влево и появляется снова
 
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
     public static final String TAG = DEV_TAG + EndlessRecyclerViewScrollListener.class.getSimpleName();
@@ -54,6 +58,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
     // but first we check if we are waiting for the previous load to finish.
     @Override
     public void onScrolled(RecyclerView view, int dx, int dy) {
+//        Log.d(TAG, "onScrolled dx = " + dx + ", dy = " + dy);
         int lastVisibleItemPosition = 0;
         int totalItemCount = mLayoutManager.getItemCount();
 

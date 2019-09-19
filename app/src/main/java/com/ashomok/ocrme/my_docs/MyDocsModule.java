@@ -4,10 +4,14 @@ package com.ashomok.ocrme.my_docs;
  * Created by iuliia on 12/27/17.
  */
 
+import android.content.Context;
+
 import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
+import com.ashomok.ocrme.ad.AdContainer;
+import com.ashomok.ocrme.ad.AdMobContainerImpl;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 
 import dagger.Binds;
@@ -28,12 +32,16 @@ public abstract class MyDocsModule {
 
     @Provides
     static @StringRes
-    int provideAdBannerId() {
+    int provideNativeAdId() {
         if (BuildConfig.DEBUG) {
-            return R.string.test_banner;
+            return R.string.test_native;
         } else {
-            return R.string.my_docs_banner;
+            return R.string.my_docs_native;
         }
+    }
+    @Provides
+    static AdContainer provideAdMobContainer(Context context, @StringRes int adMobId) {
+        return new AdMobContainerImpl(context, adMobId);
     }
 
     @Binds
