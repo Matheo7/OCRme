@@ -12,10 +12,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.FragmentActivity;
-
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -23,6 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentActivity;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
@@ -120,7 +120,7 @@ public class SearchablePdfFragment extends DaggerFragment implements SearchableP
     public void runPDFIntent(File pdfFile) {
 
             if (pdfFile.exists()) {
-                Uri fileUri = null;
+                Uri fileUri;
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //explanation https://inthecheesefactory.com/blog/how-to-share-access-to-file-with-fileprovider-on-android-nougat/en
 
                     fileUri = FileProvider.getUriForFile(context,

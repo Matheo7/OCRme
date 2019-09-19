@@ -11,15 +11,13 @@
     <string name="cancel">Cancel</string>
     <string name="remove_ads">Remove ads</string>
     <string name="about">About</string>
-    <string name="share_opinion">Please share your opinion</string>
-    <string name="ok" translatable="false">OK</string>
+    <string name="ok">OK</string>
     <string name="ok_sure">OK, sure</string>
     <string name="later">Later</string>
     <string name="never">Never</string>
     <string name="camera_not_found">Camera not found</string>
     <string name="thank_you_for_your_support">Thank you for your support!</string>
     <string name="times_app_was_used" translatable="false">times_app_was_used</string>
-    <string name="rate_app_dialog_title">Rate app</string>
     <string name="language">Language:</string>
     <string name="language_label">Language</string>
     <string name="my_docs">My docs</string>
@@ -69,7 +67,6 @@
     <string name="network_error">Network error. Check internet connection.</string>
     <string name="language_not_supported">Language not supported</string>
     <string name="sign_in">Sign in</string>
-    <string name="unknown_response">Unknown response</string>
     <string name="sign_in_cancelled">Sign in cancelled</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="sign_out_failed">Sign out failed</string>
@@ -130,7 +127,6 @@
     <string name="watch_video_ads">Watch one video ad</string>
     <string name="best_choise">Best choice</string>
     <string name="login_to_system">Login to system</string>
-    <string name="rate_app_5_stars">Rate app ★★★★★</string>
     <string name="rate_app">Rate app</string>
     <string name="follow_us_on_fb">Follow us on Facebook</string>
     <string name="requests_cost" translatable="false">+%1$s</string>
@@ -199,15 +195,10 @@
     <string name="one_month_premium">One Month Premium</string>
     <string name="unlimited_requests">Unlimited requests + No ads</string>
     <string name="one_year_premium">One Year Premium</string>
-    <string name="searchable_PDF" translatable="false">searchable PDF</string>
+    <string name="searchable_PDF">searchable PDF</string>
     <string name="privacy_policy_agreement">Privacy Policy agreement</string>
-    <string name="privacy_policy">Privacy Policy</string>
     <string name="privacy_policy_explanation">Using this app you agreed with our Privacy Policy.</string>
     <string name="no_video_ads_avalible">No video ads available for you right now. Please check later.</string>
     <string name="unable_to_open_fb">Unable to open Facebook. Install Facebook app to your device and try again.</string>
-
-    <string name="save">Save</string>
-    <string name="scan">Scan</string>
-
     <string name="ad_attribution" translatable="false">AD</string>
 </resources>

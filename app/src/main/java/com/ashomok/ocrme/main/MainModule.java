@@ -5,14 +5,11 @@ package com.ashomok.ocrme.main;
  */
 
 import android.app.Activity;
-import android.content.Context;
 
 import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.ad.AdContainer;
-import com.ashomok.ocrme.ad.AdMobContainerImpl;
 import com.ashomok.ocrme.my_docs.MyDocsPresenter;
 
 import dagger.Binds;

@@ -4,16 +4,17 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.ocr.OcrActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -122,7 +123,6 @@ public class CropImageActivity extends AppCompatActivity
         handleCropResult(result);
     }
 
-    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     private void handleCropResult(CropImageView.CropResult result) {
         if (result.getError() == null) {
             Intent intent = new Intent(this, OcrActivity.class);

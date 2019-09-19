@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
@@ -14,6 +13,8 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.annimon.stream.Optional;
 import com.ashomok.ocrme.BuildConfig;
@@ -46,7 +47,6 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.ashomok.ocrme.ocr_result.OcrResultActivity.EXTRA_ERROR_MESSAGE;
 import static com.ashomok.ocrme.ocr_result.OcrResultActivity.EXTRA_OCR_RESPONSE;
-import static com.ashomok.ocrme.utils.FileUtils.scaleBitmapDown;
 import static com.ashomok.ocrme.utils.FileUtils.toBytes;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 

@@ -14,9 +14,10 @@
 package com.ashomok.ocrme.get_more_requests.row.free_options;
 
 import android.content.Context;
-import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.ashomok.ocrme.OcrRequestsCounter;
 import com.ashomok.ocrme.R;

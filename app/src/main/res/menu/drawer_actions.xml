@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group
-        android:id="@+id/menu_items"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/my_docs"
@@ -22,9 +20,7 @@
             android:icon="@drawable/ic_sentiment_satisfied"
             android:title="@string/rate_app" />
     </group>
-    <group
-        android:id="@+id/logout_group"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/logout"
             android:icon="@drawable/log_out"

@@ -7,14 +7,12 @@ package com.ashomok.ocrme.my_docs;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
@@ -25,15 +23,8 @@ import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsResponse;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
 import com.ashomok.ocrme.utils.NetworkUtils;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.VideoOptions;
-import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

@@ -1,11 +1,12 @@
 package com.ashomok.ocrme.ad;
 
 import android.content.Context;
-import androidx.annotation.StringRes;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.R;
 import com.google.android.gms.ads.AdListener;

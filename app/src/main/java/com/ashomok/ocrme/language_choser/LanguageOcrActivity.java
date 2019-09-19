@@ -3,13 +3,14 @@ package com.ashomok.ocrme.language_choser;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
@@ -110,12 +111,7 @@ public class LanguageOcrActivity extends DaggerAppCompatActivity implements Lang
     private @Nullable
     List<String> obtainCheckedLanguageCodes() {
         Intent intent = getIntent();
-        ArrayList<String> extra = intent.getStringArrayListExtra(CHECKED_LANGUAGE_CODES);
-        if (extra != null) {
-            return extra;
-        } else {
-            return null;
-        }
+        return intent.getStringArrayListExtra(CHECKED_LANGUAGE_CODES);
     }
 
     /**

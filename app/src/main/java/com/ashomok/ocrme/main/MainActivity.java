@@ -12,15 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import androidx.annotation.Nullable;
-
-import com.ashomok.ocrme.crop_image.CropImageActivity;
-import com.google.android.material.navigation.NavigationView;
-import androidx.core.content.FileProvider;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -33,12 +24,20 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.ExitDialogFragment;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
 import com.ashomok.ocrme.about.AboutActivity;
 import com.ashomok.ocrme.ad.AdMobContainerImpl;
+import com.ashomok.ocrme.crop_image.CropImageActivity;
 import com.ashomok.ocrme.firebaseUiAuth.AuthUiActivity;
 import com.ashomok.ocrme.firebaseUiAuth.SignOutDialogFragment;
 import com.ashomok.ocrme.language_choser.LanguageOcrActivity;
@@ -48,6 +47,7 @@ import com.ashomok.ocrme.update_to_premium.UpdateToPremiumActivity;
 import com.ashomok.ocrme.utils.InfoSnackbarUtil;
 import com.ashomok.ocrme.utils.NetworkUtils;
 import com.ashomok.ocrme.utils.RateAppUtils;
+import com.google.android.material.navigation.NavigationView;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -509,8 +509,6 @@ public class MainActivity extends AuthUiActivity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_in_btn:
-                signIn();
-                break;
             case R.id.propose_sign_in_layout:
                 signIn();
                 break;

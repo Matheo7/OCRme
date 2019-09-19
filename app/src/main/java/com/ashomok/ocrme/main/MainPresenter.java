@@ -2,9 +2,10 @@ package com.ashomok.ocrme.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Optional;

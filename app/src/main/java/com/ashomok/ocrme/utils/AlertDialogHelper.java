@@ -3,10 +3,11 @@ package com.ashomok.ocrme.utils;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Looper;
-import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by Jaison on 04/10/16.

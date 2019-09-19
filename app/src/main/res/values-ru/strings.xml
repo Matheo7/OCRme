@@ -8,12 +8,11 @@
     <string name="cancel">Отмена</string>
     <string name="remove_ads">Убрать рекламу</string>
     <string name="about">О приложении</string>
-    <string name="share_opinion">Пожалуйста, поделитесь своим мнением</string>
     <string name="later">Позже</string>
     <string name="never">Никогда</string>
+    <string name="ok">OK</string>
     <string name="camera_not_found">Камера не найдена</string>
     <string name="thank_you_for_your_support">Спасибо за Вашу поддержку!</string>
-    <string name="rate_app_dialog_title">Оценить приложение</string>
     <string name="language">Язык:</string>
     <string name="language_label">язык</string>
     <string name="my_docs">Мои документы</string>
@@ -57,7 +56,6 @@
     <string name="network_error">Ошибка сети. Проверьте подключение к Интернету.</string>
     <string name="language_not_supported">Язык не поддерживается</string>
     <string name="sign_in">Войти</string>
-    <string name="unknown_response">Неизвестная ошибка</string>
     <string name="sign_in_cancelled">Вход в систему отменен</string>
     <string name="no_internet_connection">Нет соединения с интернетом</string>
     <string name="sign_out_failed">Выйти не удалось</string>
@@ -117,7 +115,6 @@
     <string name="watch_video_ads">Просмотр одной видеорекламы</string>
     <string name="best_choise">Лучший выбор</string>
     <string name="login_to_system">Войти в систему</string>
-    <string name="rate_app_5_stars">Оценить приложение ★★★★★</string>
     <string name="follow_us_on_fb">Следить за нами на Facebook</string>
     <string name="task_is_done">Задача выполнена</string>
     <string name="failed_to_load_video_ad">Не удалось загрузить видеорекламу</string>
@@ -172,6 +169,7 @@
     <string name="turkish">Турецкий</string>
     <string name="ukrainian">Украинский</string>
     <string name="urdu">Урду</string>
+    <string name="searchable_PDF">searchable PDF</string>
     <string name="uzbek">Узбекский</string>
     <string name="vietnamese">Вьетнамский</string>
     <string name="buy_100_requests">Купить 100 реквестов</string>
@@ -179,7 +177,6 @@
     <string name="unlimited_requests">Безлимитные реквесты + Без рекламы</string>
     <string name="one_year_premium">Премиум на год</string>
     <string name="privacy_policy_agreement">Соглашение о конфиденциальности</string>
-    <string name="privacy_policy">Соглашение о конфиденциальности</string>
     <string name="unable_to_open_fb">Невозможно открыть Facebook. Установите приложение Facebook и попробуйте снова.</string>
     <string name="privacy_policy_explanation">Используя это приложение Вы соглашаетесь с нашей Политикой конфиденциальности.</string>
     <string name="no_video_ads_avalible">Нет видеорекламы, доступной для Вас прямо сейчас. Пожалуйста, проверьте позже.</string>

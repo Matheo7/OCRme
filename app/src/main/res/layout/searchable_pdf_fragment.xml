@@ -71,12 +71,13 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="?android:selectableItemBackground"
-                android:drawableLeft="@drawable/ic_open_in_new_black_24dp"
+                android:drawableStart="@drawable/ic_open_in_new_black_24dp"
                 android:drawablePadding="@dimen/my_base_margin"
                 android:gravity="center_vertical"
                 android:text="@string/open_in_another_app"
                 android:textAllCaps="false"
-                android:textColor="@color/grey_800" />
+                android:textColor="@color/grey_800"
+                android:drawableLeft="@drawable/ic_open_in_new_black_24dp" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

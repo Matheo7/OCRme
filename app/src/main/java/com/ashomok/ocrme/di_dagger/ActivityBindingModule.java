@@ -1,6 +1,5 @@
 package com.ashomok.ocrme.di_dagger;
 
-import com.ashomok.ocrme.crop_image.CropImageActivity;
 import com.ashomok.ocrme.get_more_requests.GetMoreRequestsActivity;
 import com.ashomok.ocrme.get_more_requests.GetMoreRequestsModule;
 import com.ashomok.ocrme.language_choser.LanguageOcrActivity;

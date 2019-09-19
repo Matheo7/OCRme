@@ -16,15 +16,15 @@ package com.ashomok.ocrme.firebaseUiAuth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.my_docs.MyDocsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.AuthUI.IdpConfig;
 import com.firebase.ui.auth.ErrorCodes;
@@ -36,15 +36,12 @@ import java.util.List;
 
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showInfo;
-
-import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
-import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showInfo;
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public abstract class AuthUiActivity extends AppCompatActivity {
-    private static final String TAG =  DEV_TAG + AuthUiActivity.class.getSimpleName();;
+    private static final String TAG =  DEV_TAG + AuthUiActivity.class.getSimpleName();
 
- private static final String FIREBASE_TOS_URL = "https://firebase.google.com/terms/";
+    private static final String FIREBASE_TOS_URL = "https://firebase.google.com/terms/";
  private static final String FIREBASE_PRIVACY_POLICY_URL = "https://firebase.google.com/terms/analytics/#7_privacy";
 
     private static final int RC_SIGN_IN = 100;

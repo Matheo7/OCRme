@@ -1,9 +1,10 @@
 package com.ashomok.ocrme.utils;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 

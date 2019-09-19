@@ -11,7 +11,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.text.InputType;
 import android.text.Spanned;
@@ -24,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.annimon.stream.IntStream;
 import com.annimon.stream.Stream;
@@ -256,7 +257,6 @@ public class TranslateActivity extends RxAppCompatActivity implements View.OnCli
         v.vibrate(300);
     }
 
-    @SuppressWarnings("deprecation")
     private void onShareClicked() {
         String text = targetEditText.getText().toString();
 

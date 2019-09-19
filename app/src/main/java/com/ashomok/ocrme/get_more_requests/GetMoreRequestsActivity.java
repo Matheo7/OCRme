@@ -1,14 +1,13 @@
 package com.ashomok.ocrme.get_more_requests;
 
 import android.os.Bundle;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ashomok.ocrme.OcrRequestsCounter;
 import com.ashomok.ocrme.R;
@@ -17,6 +16,8 @@ import com.ashomok.ocrme.firebaseUiAuth.AuthUiActivity;
 import com.ashomok.ocrme.get_more_requests.row.free_options.PromoListFreeOptionsAdapter;
 import com.ashomok.ocrme.get_more_requests.row.paid_options.PromoListPaidOptionsAdapter;
 import com.ashomok.ocrme.utils.InfoSnackbarUtil;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.List;
 

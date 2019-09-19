@@ -1,10 +1,11 @@
 package com.ashomok.ocrme.ocr_result.tab_fragments.text.translate;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.util.Pair;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.ocr_result.tab_fragments.text.translate.translate_task.translate_task.SupportedLanguagesResponse;
