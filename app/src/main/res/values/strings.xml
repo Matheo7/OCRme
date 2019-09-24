@@ -25,7 +25,7 @@
     <string name="arabic">Arabic</string>
     <string name="assamese">Assamese</string>
     <string name="azarbaijani">Azerbaijani</string>
-    <string name="belorussian">Belorussian</string>
+    <string name="belorussian">Belarusian</string>
     <string name="bengali">Bengali</string>
     <string name="bulgarian">Bulgarian</string>
     <string name="catalan">Catalan</string>
@@ -87,7 +87,6 @@
     <string name="preferences" translatable="false">preferences</string>
     <string name="crop">Crop</string>
     <string name="main_action_rotate">Rotate</string>
-    <string name="menu_item_delete">Delete</string>
     <string name="unable_identify_user">Unable to identify user. Try login again.</string>
     <string name="deleted">Deleted</string>
     <string name="selected">\u0020selected</string>
@@ -201,10 +200,4 @@
     <string name="no_video_ads_avalible">No video ads available for you right now. Please check later.</string>
     <string name="unable_to_open_fb">Unable to open Facebook. Install Facebook app to your device and try again.</string>
     <string name="ad_attribution" translatable="false">AD</string>
-    <string name="ad_1">Scan and Translate Text.</string>
-    <string name="ad_2">Free Photo Image Scanner.</string>
-    <string name="ad_3">Scan Translate Image Tool</string>
-    <string name="ad_4">100+ Languages Supported.</string>
-
-
 </resources>

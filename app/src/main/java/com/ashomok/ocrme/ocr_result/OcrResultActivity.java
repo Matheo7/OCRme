@@ -123,13 +123,7 @@ public class OcrResultActivity
     private void initTabLayout(OcrResponse ocrData) {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.text)));
-
-        //add only for new docs
-        //todo this check is deprecated
-        OcrResult ocrResult = ocrData.getOcrResult();
-        if (ocrResult.getPdfImageResultGsUrl() != null && ocrResult.getPdfImageResultMediaUrl() != null) {
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.PDF)));
-        }
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.PDF)));
 
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.searchable_PDF)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -146,12 +140,10 @@ public class OcrResultActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }

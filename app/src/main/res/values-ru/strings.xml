@@ -75,7 +75,6 @@
     <string name="auto">автоматически</string>
     <string name="crop">Обрезать</string>
     <string name="main_action_rotate">Поворот</string>
-    <string name="menu_item_delete">Удалить</string>
     <string name="unable_identify_user">Не удалось идентифицировать пользователя. Повторите попытку входа в систему.</string>
     <string name="deleted">Удалено</string>
     <string name="selected">\u0020выбрано</string>
