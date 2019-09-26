@@ -55,7 +55,7 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
     AlertDialogHelper alertDialogHelper;
 
     @Inject
-    MyDocsPresenter mPresenter;
+    MyDocsContract.Presenter mPresenter;
 
     private List<Object> dataList;
     private List<OcrResult> multiSelectDataList;
@@ -289,39 +289,11 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (! recyclerView.canScrollVertically(1)){ //1 for down
+                     Log.d(TAG, "onLoadMore");
                     mPresenter.loadMoreDocs();
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        scrollListener =
-//                new EndlessRecyclerViewScrollListener(layoutManager) {
-//                    @Override
-//                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                        Log.d(TAG, "onLoadMore");
-//                        // Triggered only when new data needs to be appended to the list
-//                        // Add whatever code is needed to append new items to the bottom of the list
-//                        mPresenter.loadMoreDocs();
-//                    }
-//                };
-//        // Adds the scroll listener to RecyclerView
-//        recyclerView.addOnScrollListener(scrollListener);
     }
 
     private void startOcrResultActivity(OcrResponse data) {

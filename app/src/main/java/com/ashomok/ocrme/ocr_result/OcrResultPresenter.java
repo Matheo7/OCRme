@@ -3,11 +3,14 @@ package com.ashomok.ocrme.ocr_result;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.ashomok.ocrme.Settings;
 import com.ashomok.ocrme.rate_app.RateAppAsker;
 import com.ashomok.ocrme.rate_app.RateAppAskerCallback;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 import javax.inject.Inject;
 
@@ -40,7 +43,45 @@ public class OcrResultPresenter implements OcrResultContract.Presenter, RateAppA
     }
 
     private void init() {
+
         rateAppAsker.init(this);
+        showAdsIfNeeded();
+
+    }
+
+//    @Override
+//    public void showAdsIfNeeded() {
+//        if (Settings.isAdsActive) {
+//            if (view != null) {
+//                view.showAds();
+//            }
+//        }
+//    }
+
+
+    private void showAdsIfNeeded() {
+        if (Settings.isAdsActive) {
+
+            int adsPresentedCount = 0;
+            for (Object item : dataList) {
+                if (item instanceof UnifiedNativeAd) {
+                    adsPresentedCount++;
+                }
+            }
+
+            if (adsPresentedCount * 10 < dataList.size()){
+                //add ads
+                int random = (int )(Math.random() * 2 + 1); //1 or 2 random
+                int position = dataList.size() - random;
+                Log.d(TAG, "Native ad added to position: " + position+ " adsPresentedCount: "
+                        + adsPresentedCount + " dataList size: " + dataList.size());
+
+                UnifiedNativeAd adItem = nativeAdSet.iterator().next();
+                dataList.add(position, adItem);
+                nativeAdSet.remove(adItem);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override

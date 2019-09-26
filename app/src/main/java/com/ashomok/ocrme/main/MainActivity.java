@@ -36,7 +36,7 @@ import com.ashomok.ocrme.ExitDialogFragment;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
 import com.ashomok.ocrme.about.AboutActivity;
-import com.ashomok.ocrme.ad.AdMobContainerImpl;
+import com.ashomok.ocrme.ad.AdMobProviderImpl;
 import com.ashomok.ocrme.crop_image.CropImageActivity;
 import com.ashomok.ocrme.firebaseUiAuth.AuthUiActivity;
 import com.ashomok.ocrme.firebaseUiAuth.SignOutDialogFragment;
@@ -90,7 +90,7 @@ public class MainActivity extends AuthUiActivity implements
     @Inject
     MainPresenter mPresenter;
     @Inject
-    AdMobContainerImpl adMobContainer;
+    AdMobProviderImpl adMobContainer;
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
     private Uri imageUri;

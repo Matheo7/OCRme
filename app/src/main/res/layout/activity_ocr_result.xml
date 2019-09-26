@@ -32,11 +32,19 @@
             app:tabMaxWidth="0dp" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/native_ad" />
+
+        <include layout="@layout/ocr_result_native_ad" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/empty_result_layout"

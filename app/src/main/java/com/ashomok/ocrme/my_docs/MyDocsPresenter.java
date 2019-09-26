@@ -18,7 +18,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
-import com.ashomok.ocrme.ad.AdContainer;
+import com.ashomok.ocrme.ad.AdProvider;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsResponse;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
@@ -60,7 +60,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
     private String startCursor;
     private boolean initialized = false;
     private Set<UnifiedNativeAd> nativeAdSet;
-    private AdContainer adMobContainer;
+    private AdProvider adProvider;
 
 
     /**
@@ -68,21 +68,22 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
      * with {@code @Nullable} values.
      */
     @Inject
-    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient, AdContainer adMobContainer) {
+    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient, AdProvider adProvider) {
         this.context = context;
         this.httpClient = checkNotNull(httpClient);
-        this.adMobContainer = adMobContainer;
+        this.adProvider = adProvider;
     }
 
     @Override
     public void takeView(MyDocsContract.View myDocsActivity) {
         view = myDocsActivity;
         if (Settings.isAdsActive) {
-            nativeAdSet = adMobContainer.loadNativeAdAsync();
+            nativeAdSet = adProvider.loadNativeAdsAsync();
         }
     }
 
-    void initWithDocs() {
+    @Override
+    public void initWithDocs() {
         Log.d(TAG, "on initWithDocs");
         if (view != null) {
             if (!initialized) {
@@ -276,7 +277,8 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
         }
     }
 
-    void deleteDocs(List<OcrResult> multiSelectDataList) {
+    @Override
+    public void deleteDocs(List<OcrResult> multiSelectDataList) {
         if (view != null) {
             if (isOnline()) {
                 List<Long> ids = Stream.of(multiSelectDataList)

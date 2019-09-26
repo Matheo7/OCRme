@@ -40,5 +40,9 @@ public interface MyDocsContract {
         void onSharePdfClicked(String mDownloadURL);
 
         void showAdsIfNeeded(List<Object> dataList, RecyclerViewAdapter adapter);
+
+        void deleteDocs(List<OcrResult> multiSelectDataList);
+
+        void initWithDocs();
     }
 }

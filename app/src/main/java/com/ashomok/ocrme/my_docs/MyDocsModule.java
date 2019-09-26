@@ -10,8 +10,8 @@ import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.ad.AdContainer;
-import com.ashomok.ocrme.ad.AdMobContainerImpl;
+import com.ashomok.ocrme.ad.AdProvider;
+import com.ashomok.ocrme.ad.AdMobProviderImpl;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 
 import dagger.Binds;
@@ -40,8 +40,8 @@ public abstract class MyDocsModule {
         }
     }
     @Provides
-    static AdContainer provideAdMobContainer(Context context, @StringRes int adMobId) {
-        return new AdMobContainerImpl(context, adMobId);
+    static AdProvider provideAdMobContainer(Context context, @StringRes int adMobId) {
+        return new AdMobProviderImpl(context, adMobId);
     }
 
     @Binds
