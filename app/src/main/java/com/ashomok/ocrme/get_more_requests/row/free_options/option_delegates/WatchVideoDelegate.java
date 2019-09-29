@@ -44,7 +44,7 @@ public class WatchVideoDelegate extends UiFreeOptionManagingDelegate implements 
     private void loadRewardedVideoAd() {
         if (!mRewardedVideoAd.isLoaded()) {
             String rewardedVideoAdAppId =
-                    activity.getResources().getString(R.string.rewarded_video_ad_unit_id);
+                    activity.getResources().getString(R.string.rewarded_video_ad_id);
             mRewardedVideoAd.loadAd(rewardedVideoAdAppId, new AdRequest.Builder().build());
         }
     }

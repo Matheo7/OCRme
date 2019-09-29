@@ -142,13 +142,13 @@
     <string name="this_is_free_version">This is a free version with ads</string>
     <string name="buy_paid">Buy ads-free version.</string>
     <string name="ads_free_explanation">Hate ads? We too. \nIf you like this app, please support a developer.</string>
-    <string name="main_activity_banner" translatable="false">ca-app-pub-5221781428763224/8655115109</string>
-    <string name="my_docs_native" translatable="false">ca-app-pub-5221781428763224/6689169887</string>
-    <string name="test_banner" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="test_native" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="main_activity_banner_ad_id" translatable="false">ca-app-pub-5221781428763224/8655115109</string>
+    <string name="my_docs_native_ad_id" translatable="false">ca-app-pub-5221781428763224/6689169887</string>
+    <string name="test_banner_ad_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="test_native_ad_id" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
     <string name="app_id" translatable="false">ca-app-pub-5221781428763224~3047729508</string>
     <string name="days_free">7 days FREE!</string>
-    <string name="rewarded_video_ad_unit_id" translatable="false">ca-app-pub-5221781428763224/9069787345</string>
+    <string name="rewarded_video_ad_id" translatable="false">ca-app-pub-5221781428763224/9069787345</string>
     <string name="finnish">Finnish</string>
     <string name="french">French</string>
     <string name="german">German</string>
@@ -200,5 +200,5 @@
     <string name="no_video_ads_avalible">No video ads available for you right now. Please check later.</string>
     <string name="unable_to_open_fb">Unable to open Facebook. Install Facebook app to your device and try again.</string>
     <string name="ad_attribution" translatable="false">AD</string>
-    <string name="results_native" translatable="false">ca-app-pub-5221781428763224/1457544994</string>
+    <string name="result_native_ad_id" translatable="false">ca-app-pub-5221781428763224/1457544994</string>
 </resources>

@@ -55,9 +55,9 @@ public abstract class OcrResultModule {
     static @StringRes
     int provideNativeAdId() {
         if (BuildConfig.DEBUG) {
-            return R.string.test_native;
+            return R.string.test_native_ad_id;
         } else {
-            return R.string.results_native;
+            return R.string.result_native_ad_id;
         }
     }
 }
