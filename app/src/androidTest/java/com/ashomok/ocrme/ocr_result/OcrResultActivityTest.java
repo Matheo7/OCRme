@@ -7,6 +7,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResponse;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
@@ -140,5 +141,13 @@ public class OcrResultActivityTest {
     public void testShortText() throws InterruptedException {
         launchActivityWithShortText();
         Thread.sleep(4000);
+    }
+
+    @Test
+    public void testAdAppears() throws InterruptedException {
+        launchActivityWithShortText();
+        Thread.sleep(70000);
+        launchActivityWithLongText();
+        Thread.sleep(70000);
     }
 }

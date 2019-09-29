@@ -12,6 +12,7 @@ import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.ad.AdProvider;
 import com.ashomok.ocrme.ad.AdMobProviderImpl;
+import com.ashomok.ocrme.ad.NativeAdProviderImpl;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 
 import dagger.Binds;
@@ -39,9 +40,10 @@ public abstract class MyDocsModule {
             return R.string.my_docs_native;
         }
     }
+
     @Provides
-    static AdProvider provideAdMobContainer(Context context, @StringRes int adMobId) {
-        return new AdMobProviderImpl(context, adMobId);
+    static NativeAdProviderImpl provideNativeAdProviderImpl(Context context, @StringRes int adMobId) {
+        return new NativeAdProviderImpl(context, adMobId);
     }
 
     @Binds

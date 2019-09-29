@@ -8,11 +8,14 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.ashomok.ocrme.Settings;
+import com.ashomok.ocrme.ad.NativeAdProviderImpl;
 import com.ashomok.ocrme.rate_app.RateAppAsker;
 import com.ashomok.ocrme.rate_app.RateAppAskerCallback;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
@@ -21,14 +24,16 @@ public class OcrResultPresenter implements OcrResultContract.Presenter, RateAppA
     @Nullable
     private OcrResultContract.View view;
     private RateAppAsker rateAppAsker;
+    private NativeAdProviderImpl adProvider;
 
     /**
      * Dagger strictly enforces that arguments not marked with {@code @Nullable} are not injected
      * with {@code @Nullable} values.
      */
     @Inject
-    OcrResultPresenter(RateAppAsker rateAppAsker) {
+    OcrResultPresenter(RateAppAsker rateAppAsker, NativeAdProviderImpl adProvider) {
         this.rateAppAsker = rateAppAsker;
+        this.adProvider = adProvider;
     }
 
     @Override
@@ -43,44 +48,25 @@ public class OcrResultPresenter implements OcrResultContract.Presenter, RateAppA
     }
 
     private void init() {
-
         rateAppAsker.init(this);
         showAdsIfNeeded();
 
     }
 
-//    @Override
-//    public void showAdsIfNeeded() {
-//        if (Settings.isAdsActive) {
-//            if (view != null) {
-//                view.showAds();
-//            }
-//        }
-//    }
-
 
     private void showAdsIfNeeded() {
         if (Settings.isAdsActive) {
-
-            int adsPresentedCount = 0;
-            for (Object item : dataList) {
-                if (item instanceof UnifiedNativeAd) {
-                    adsPresentedCount++;
-                }
-            }
-
-            if (adsPresentedCount * 10 < dataList.size()){
-                //add ads
-                int random = (int )(Math.random() * 2 + 1); //1 or 2 random
-                int position = dataList.size() - random;
-                Log.d(TAG, "Native ad added to position: " + position+ " adsPresentedCount: "
-                        + adsPresentedCount + " dataList size: " + dataList.size());
-
-                UnifiedNativeAd adItem = nativeAdSet.iterator().next();
-                dataList.add(position, adItem);
-                nativeAdSet.remove(adItem);
-                adapter.notifyDataSetChanged();
-            }
+            adProvider.loadNativeAd()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            ad -> {
+                                if (view != null) {
+                                    view.populateUnifiedNativeAdView(ad);
+                                }
+                            }, throwable -> {
+                                Log.e(TAG, throwable.getMessage());
+                            });
         }
     }
 

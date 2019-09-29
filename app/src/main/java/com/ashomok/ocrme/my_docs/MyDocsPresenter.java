@@ -19,6 +19,7 @@ import com.annimon.stream.Stream;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
 import com.ashomok.ocrme.ad.AdProvider;
+import com.ashomok.ocrme.ad.NativeAdProviderImpl;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsResponse;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
@@ -59,8 +60,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
     private String idToken;
     private String startCursor;
     private boolean initialized = false;
-    private Set<UnifiedNativeAd> nativeAdSet;
-    private AdProvider adProvider;
+    private NativeAdProviderImpl adProvider;
 
 
     /**
@@ -68,7 +68,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
      * with {@code @Nullable} values.
      */
     @Inject
-    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient, AdProvider adProvider) {
+    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient, NativeAdProviderImpl adProvider) {
         this.context = context;
         this.httpClient = checkNotNull(httpClient);
         this.adProvider = adProvider;
@@ -77,9 +77,6 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
     @Override
     public void takeView(MyDocsContract.View myDocsActivity) {
         view = myDocsActivity;
-        if (Settings.isAdsActive) {
-            nativeAdSet = adProvider.loadNativeAdsAsync();
-        }
     }
 
     @Override
@@ -251,28 +248,30 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
 
     @Override
     public void showAdsIfNeeded(List<Object> dataList, RecyclerViewAdapter adapter) {
-        if (Settings.isAdsActive &&
-                dataList.size() > 1 &&
-                nativeAdSet.size() > 0) {
 
-            int adsPresentedCount = 0;
-            for (Object item : dataList) {
-                if (item instanceof UnifiedNativeAd) {
-                    adsPresentedCount++;
+        if (Settings.isAdsActive) {
+            Set<UnifiedNativeAd> nativeAdSet = adProvider.getNativeAds();
+            if (dataList.size() > 1 && nativeAdSet.size() > 0) {
+
+                int adsPresentedCount = 0;
+                for (Object item : dataList) {
+                    if (item instanceof UnifiedNativeAd) {
+                        adsPresentedCount++;
+                    }
                 }
-            }
 
-            if (adsPresentedCount * 10 < dataList.size()){
-                //add ads
-                int random = (int )(Math.random() * 2 + 1); //1 or 2 random
-                int position = dataList.size() - random;
-                Log.d(TAG, "Native ad added to position: " + position+ " adsPresentedCount: "
-                        + adsPresentedCount + " dataList size: " + dataList.size());
+                if (adsPresentedCount * 10 < dataList.size()) {
+                    //add ads
+                    int random = (int) (Math.random() * 2 + 1); //1 or 2 random
+                    int position = dataList.size() - random;
+                    Log.d(TAG, "Native ad added to position: " + position + " adsPresentedCount: "
+                            + adsPresentedCount + " dataList size: " + dataList.size());
 
-                UnifiedNativeAd adItem = nativeAdSet.iterator().next();
-                dataList.add(position, adItem);
-                nativeAdSet.remove(adItem);
-                adapter.notifyDataSetChanged();
+                    UnifiedNativeAd adItem = nativeAdSet.iterator().next();
+                    dataList.add(position, adItem);
+                    nativeAdSet.remove(adItem);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     }

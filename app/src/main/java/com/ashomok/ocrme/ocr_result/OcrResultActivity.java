@@ -2,8 +2,11 @@ package com.ashomok.ocrme.ocr_result;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -11,7 +14,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResponse;
-import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
@@ -58,7 +62,7 @@ public class OcrResultActivity
                     showError(ocrData.getStatus());
                 }
             }
-            fixCoordinatorLayout();
+
         }
 
         mPresenter.takeView(this);
@@ -69,23 +73,6 @@ public class OcrResultActivity
         super.onDestroy();
         mPresenter.dropView();  //prevent leaking activity in
         // case presenter is orchestrating a long running task
-    }
-
-    /**
-     * fix of issue - Android - footer scrolls off screen when used in CoordinatorLayout
-     * https://stackoverflow.com/questions/30777698/android-footer-scrolls-off-screen-when-used-in-coordinatorlayout
-     */
-
-    private void fixCoordinatorLayout() {
-        AppBarLayout appBarLayout = findViewById(R.id.appbar);
-        ViewPager contentLayout = findViewById(R.id.pager);
-        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
-            ViewGroup.MarginLayoutParams layoutParams =
-                    (ViewGroup.MarginLayoutParams) contentLayout.getLayoutParams();
-            layoutParams.setMargins(
-                    0, 0, 0, appBarLayout1.getMeasuredHeight() / 2 + verticalOffset);
-            contentLayout.requestLayout();
-        });
     }
 
     private void showError(OcrResponse.Status status) {
@@ -119,6 +106,44 @@ public class OcrResultActivity
         TextView errorMessageView = emptyResult.findViewById(R.id.error_message);
         errorMessageView.setText(errorMessage);
     }
+
+    @Override
+    public void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd) {
+        Log.d(TAG, "on populateUnifiedNativeAdView");
+        View adView = findViewById(R.id.native_ad);
+        adView.setVisibility(View.VISIBLE);
+        NativeAdViewHolder nativeAdViewHolder = new NativeAdViewHolder(adView);
+
+//         The headline is guaranteed to be in every UnifiedNativeAd.
+        ((TextView) nativeAdViewHolder.adView.getHeadlineView()).setText(nativeAd.getHeadline());
+
+        if (nativeAd.getCallToAction() == null) {
+            nativeAdViewHolder.adView.getCallToActionView().setVisibility(View.GONE);
+        } else {
+            nativeAdViewHolder.adView.getCallToActionView().setVisibility(View.VISIBLE);
+            ((Button) nativeAdViewHolder.adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+        }
+
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.getBody() == null) {
+            nativeAdViewHolder.adView.getBodyView().setVisibility(View.GONE);
+        } else {
+            nativeAdViewHolder.adView.getBodyView().setVisibility(View.VISIBLE);
+            ((TextView) nativeAdViewHolder.adView.getBodyView()).setText(nativeAd.getBody());
+        }
+
+        if (nativeAd.getIcon() == null) {
+            nativeAdViewHolder.adView.getIconView().setVisibility(View.GONE);
+        } else {
+            ((ImageView) nativeAdViewHolder.adView.getIconView()).setImageDrawable(
+                    nativeAd.getIcon().getDrawable());
+            nativeAdViewHolder.adView.getIconView().setVisibility(View.VISIBLE);
+        }
+
+        nativeAdViewHolder.adView.setNativeAd(nativeAd);
+    }
+
 
     private void initTabLayout(OcrResponse ocrData) {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
@@ -162,5 +187,17 @@ public class OcrResultActivity
             //save data if you need here
             finish();
         });
+    }
+
+    private static class NativeAdViewHolder {
+        UnifiedNativeAdView adView;
+
+        NativeAdViewHolder(View view) {
+            adView = view.findViewById(R.id.native_ad);
+            adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
+            adView.setBodyView(adView.findViewById(R.id.ad_body));
+            adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+            adView.setIconView(adView.findViewById(R.id.ad_app_icon));
+        }
     }
 }

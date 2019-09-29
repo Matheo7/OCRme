@@ -42,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/my_base_margin"
-            android:layout_marginRight="@dimen/my_base_margin"
             android:layout_marginTop="@dimen/my_base_margin"
+            android:layout_marginRight="@dimen/my_base_margin"
             android:layout_weight="1"
             android:background="@null"
             android:gravity="start"
@@ -55,15 +55,15 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/my_base_margin"
-            android:paddingStart="@dimen/my_base_margin">
+            android:paddingStart="@dimen/my_base_margin"
+            android:paddingEnd="@dimen/my_base_margin">
 
             <LinearLayout
                 android:id="@+id/bottom_icons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
 
@@ -103,13 +103,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="?android:selectableItemBackground"
-                android:drawableStart="@drawable/ic_edit_black_24dp"
-                android:drawablePadding="@dimen/my_base_margin"
                 android:gravity="center_vertical"
                 android:text="@string/bad_result"
                 android:textAllCaps="false"
-                android:textColor="@color/grey_800"
-                android:drawableLeft="@drawable/ic_edit_black_24dp" />
+                android:textColor="@color/grey_800" />
         </RelativeLayout>
     </LinearLayout>
 </merge>

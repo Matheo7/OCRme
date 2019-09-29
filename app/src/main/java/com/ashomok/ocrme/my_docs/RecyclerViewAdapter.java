@@ -36,11 +36,11 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final String TAG = DEV_TAG + RecyclerViewAdapter.class.getSimpleName();
+    private static final int DOC = 0;
+    private static final int NATIVE_AD = 1;
     private final MyDocsActivity.RecyclerViewCallback callback;
     private List<Object> mDataList;
     private List<OcrResult> multiSelectDataList;
-    private static final int DOC = 0;
-    private static final int NATIVE_AD = 1;
     private Context context;
 
 
@@ -129,36 +129,36 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, NativeAdViewHolder adView) {
+    private void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, NativeAdViewHolder adViewHolder) {
 
         // The headline is guaranteed to be in every UnifiedNativeAd.
-        ((TextView) adView.adView.getHeadlineView()).setText(nativeAd.getHeadline());
+        ((TextView) adViewHolder.adView.getHeadlineView()).setText(nativeAd.getHeadline());
 
         // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
         // check before trying to display them.
         if (nativeAd.getBody() == null) {
-            adView.adView.getBodyView().setVisibility(View.GONE);
+            adViewHolder.adView.getBodyView().setVisibility(View.GONE);
         } else {
-            adView.adView.getBodyView().setVisibility(View.VISIBLE);
-            ((TextView) adView.adView.getBodyView()).setText(nativeAd.getBody());
+            adViewHolder.adView.getBodyView().setVisibility(View.VISIBLE);
+            ((TextView) adViewHolder.adView.getBodyView()).setText(nativeAd.getBody());
         }
 
         if (nativeAd.getCallToAction() == null) {
-            adView.adView.getCallToActionView().setVisibility(View.GONE);
+            adViewHolder.adView.getCallToActionView().setVisibility(View.GONE);
         } else {
-            adView.adView.getCallToActionView().setVisibility(View.VISIBLE);
-            ((Button) adView.adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+            adViewHolder.adView.getCallToActionView().setVisibility(View.VISIBLE);
+            ((Button) adViewHolder.adView.getCallToActionView()).setText(nativeAd.getCallToAction());
         }
 
         if (nativeAd.getIcon() == null) {
-            adView.adView.getIconView().setVisibility(View.GONE);
+            adViewHolder.adView.getIconView().setVisibility(View.GONE);
         } else {
-            ((ImageView) adView.adView.getIconView()).setImageDrawable(
+            ((ImageView) adViewHolder.adView.getIconView()).setImageDrawable(
                     nativeAd.getIcon().getDrawable());
-            adView.adView.getIconView().setVisibility(View.VISIBLE);
+            adViewHolder.adView.getIconView().setVisibility(View.VISIBLE);
         }
 
-        adView.adView.setNativeAd(nativeAd);
+        adViewHolder.adView.setNativeAd(nativeAd);
     }
 
     @Override
@@ -209,6 +209,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    private static class NativeAdViewHolder extends RecyclerView.ViewHolder {
+        UnifiedNativeAdView adView;
+
+        NativeAdViewHolder(View view) {
+            super(view);
+            adView = view.findViewById(R.id.native_ad);
+            adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
+            adView.setBodyView(adView.findViewById(R.id.ad_body));
+            adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+            adView.setIconView(adView.findViewById(R.id.ad_app_icon));
+        }
+    }
+
     private class DocMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         private int position;
 
@@ -231,19 +244,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 default:
             }
             return false;
-        }
-    }
-
-    private static class NativeAdViewHolder extends RecyclerView.ViewHolder {
-        UnifiedNativeAdView adView;
-
-        NativeAdViewHolder(View view) {
-            super(view);
-            adView = view.findViewById(R.id.native_ad);
-            adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
-            adView.setBodyView(adView.findViewById(R.id.ad_body));
-            adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
-            adView.setIconView(adView.findViewById(R.id.ad_app_icon));
         }
     }
 }
