@@ -36,10 +36,10 @@ import java.util.List;
 
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showInfo;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public abstract class AuthUiActivity extends AppCompatActivity {
-    private static final String TAG =  DEV_TAG + AuthUiActivity.class.getSimpleName();
+    private static final String TAG =  LogHelper.makeLogTag(AuthUiActivity.class);
 
     private static final String FIREBASE_TOS_URL = "https://firebase.google.com/terms/";
  private static final String FIREBASE_PRIVACY_POLICY_URL = "https://firebase.google.com/terms/analytics/#7_privacy";
@@ -81,7 +81,7 @@ public abstract class AuthUiActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Log.d(TAG, "onResume");
+        LogHelper.d(TAG, "onResume");
         super.onResume();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null && auth.getCurrentUser().getEmail() != null) {
@@ -94,7 +94,7 @@ public abstract class AuthUiActivity extends AppCompatActivity {
     }
 
     private void handleSignInResponse(int resultCode, @Nullable Intent data) {
-        Log.d(TAG, "on handleSignInResponse");
+        LogHelper.d(TAG, "on handleSignInResponse");
         IdpResponse response = IdpResponse.fromResultIntent(data);
 
         // Successfully signed in
@@ -114,13 +114,13 @@ public abstract class AuthUiActivity extends AppCompatActivity {
             }
 
             showError(R.string.unknown_error, mRootView);
-            Log.e(TAG, "Sign-in error: ", response.getError());
+            LogHelper.e(TAG, "Sign-in error: ", response.getError());
         }
     }
 
 
     public void onSignedIn() {
-        Log.d(TAG, "onSignedIn");
+        LogHelper.d(TAG, "onSignedIn");
         mIsUserSignedIn = true;
         updateUi(mIsUserSignedIn);
     }
@@ -129,7 +129,7 @@ public abstract class AuthUiActivity extends AppCompatActivity {
      * called by sign out DialogFragment
      */
     public void onSignedOutCalled() {
-        Log.d(TAG, "onSignedOutCalled");
+        LogHelper.d(TAG, "onSignedOutCalled");
 
         AuthUI.getInstance()
                 .signOut(this)

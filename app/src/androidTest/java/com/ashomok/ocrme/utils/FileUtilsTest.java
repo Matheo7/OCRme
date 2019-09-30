@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import java.io.File;
 
 import static com.ashomok.ocrme.utils.FilesProvider.getTestImages;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -26,7 +26,7 @@ public class FileUtilsTest {
     private Bitmap bitmap;
     private Bitmap bitmapScaled;
 
-    public static final String TAG = DEV_TAG + FileUtils.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(FileUtils.class);
 
     private static Bitmap getBitmap() {
         String path = Stream.of(getTestImages()).filter(s -> s.contains("vertical")).single();
@@ -45,7 +45,7 @@ public class FileUtilsTest {
         Assert.assertTrue(bitmap != null);
         byte[] scaled = FileUtils.toBytes(bitmap, Bitmap.CompressFormat.JPEG);
         bitmapScaled = BitmapFactory.decodeByteArray(scaled, 0, scaled.length);
-        Log.d(TAG, "maxImgSize = " + FileUtils.maxImageSizeBytes);
+        LogHelper.d(TAG, "maxImgSize = " + FileUtils.maxImageSizeBytes);
         Assert.assertTrue(bitmapScaled != null);
     }
 }

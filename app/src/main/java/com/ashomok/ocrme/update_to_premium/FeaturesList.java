@@ -12,10 +12,10 @@ import com.ashomok.ocrme.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class FeaturesList {
-    public static final String TAG = DEV_TAG + FeaturesList.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(FeaturesList.class);
 
     public FeaturesList() {
     }

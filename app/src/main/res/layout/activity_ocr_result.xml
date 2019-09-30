@@ -36,7 +36,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/grey_200"
-            android:padding="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="0dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
             android:visibility="gone">
 
             <LinearLayout
@@ -61,6 +64,8 @@
                     android:id="@+id/ad_app_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside" />
 

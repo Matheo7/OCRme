@@ -143,11 +143,11 @@ public class OcrResultActivityTest {
         Thread.sleep(4000);
     }
 
-    @Test
-    public void testAdAppears() throws InterruptedException {
-        launchActivityWithShortText();
-        Thread.sleep(70000);
-        launchActivityWithLongText();
-        Thread.sleep(70000);
-    }
+//    @Test
+//    public void testAdAppears() throws InterruptedException {
+//        launchActivityWithShortText();
+//        Thread.sleep(70000);
+//        launchActivityWithLongText();
+//        Thread.sleep(70000);
+//    }
 }

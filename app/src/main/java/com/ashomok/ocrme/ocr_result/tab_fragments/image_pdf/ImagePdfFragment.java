@@ -39,12 +39,12 @@ import javax.inject.Inject;
 import dagger.android.support.DaggerFragment;
 
 import static com.ashomok.ocrme.Settings.appPackageName;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class ImagePdfFragment extends DaggerFragment implements ImagePdfContract.View {
     public static final String EXTRA_PDF_GS_URL = "com.ashomok.ocrme.ocr_result.tab_fragments.image_pdf.PDF_URL";
     public static final String EXTRA_PDF_MEDIA_URL = "com.ashomok.ocrme.ocr_result.tab_fragments.image_pdf.EXTRA_PDF_MEDIA_URL";
-    private static final String TAG = DEV_TAG + ImagePdfFragment.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(ImagePdfFragment.class);
     private String mGsUrl;
     private String mDownloadURL; //for sharing pdf option only
     private View mRootView;
@@ -186,7 +186,7 @@ public class ImagePdfFragment extends DaggerFragment implements ImagePdfContract
                 }
             });
         } catch (IllegalStateException e) {
-            Log.e(TAG, e.getMessage());
+            LogHelper.e(TAG, e.getMessage());
         }
     }
 

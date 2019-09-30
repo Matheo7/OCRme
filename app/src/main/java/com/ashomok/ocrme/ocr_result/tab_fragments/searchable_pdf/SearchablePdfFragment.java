@@ -39,7 +39,7 @@ import javax.inject.Inject;
 import dagger.android.support.DaggerFragment;
 
 import static com.ashomok.ocrme.Settings.appPackageName;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 5/31/17.
@@ -47,7 +47,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 public class SearchablePdfFragment extends DaggerFragment implements SearchablePdfContract.View {
     public static final String EXTRA_PDF_GS_URL = "com.ashomok.ocrme.ocr_result.tab_fragments.searchable_pdf.PDF_URL";
     public static final String EXTRA_PDF_MEDIA_URL = "com.ashomok.ocrme.ocr_result.tab_fragments.searchable_pdf.EXTRA_PDF_MEDIA_URL";
-    private static final String TAG = DEV_TAG + SearchablePdfFragment.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(SearchablePdfFragment.class);
     private String mGsUrl;
     private String mDownloadURL; //for sharing pdf option only
     private View mRootView;
@@ -188,7 +188,7 @@ public class SearchablePdfFragment extends DaggerFragment implements SearchableP
                 }
             });
         } catch (IllegalStateException e) {
-            Log.e(TAG, e.getMessage());
+            LogHelper.e(TAG, e.getMessage());
         }
     }
 
