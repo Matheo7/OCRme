@@ -19,10 +19,10 @@ import io.reactivex.Completable;
 
 import static com.ashomok.ocrme.utils.FileUtils.copy;
 import static com.ashomok.ocrme.utils.FileUtils.prepareDirectory;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class SearchablePdfPresenter implements SearchablePdfContract.Presenter {
-    public static final String TAG = DEV_TAG + TextPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(TextPresenter.class);
     private final Context context;
 
     @Nullable
@@ -119,7 +119,7 @@ public class SearchablePdfPresenter implements SearchablePdfContract.Presenter {
             mPdfFileCopy = new File(storageDir, fileNamePrefix + ".pdf");
 
             copy(inputFile, mPdfFileCopy);
-            Log.d(TAG, "pdf file path = " + mPdfFileCopy.getPath());
+            LogHelper.d(TAG, "pdf file path = " + mPdfFileCopy.getPath());
             return mPdfFileCopy;
         }
     }

@@ -19,13 +19,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.ashomok.ocrme.ocr.OcrActivityTest.hasDrawable;
 import static com.ashomok.ocrme.utils.FilesProvider.getTestImages;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 11/28/17.
  */
 public class CropImageActivityTest {
-    private static final String TAG = DEV_TAG + CropImageActivityTest.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(CropImageActivityTest.class);
 
     @Rule
     public ActivityTestRule<CropImageActivity> mActivityRule = new ActivityTestRule<>(

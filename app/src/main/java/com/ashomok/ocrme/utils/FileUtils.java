@@ -18,14 +18,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 5/30/17.
  */
 
 public class FileUtils {
-    private static final String TAG = DEV_TAG + FileUtils.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(FileUtils.class);
     private static final String DEFAULT_DIR_NAME = "Camera";
     public static final int maxImageSizeBytes = 200 * 1024; //200 kb
 
@@ -72,7 +72,7 @@ public class FileUtils {
             baos.reset();
             bitmap.compress(compressFormat, options, baos);
             options -= 10;
-            Log.d(TAG, "image byte array size = " + baos.toByteArray().length);
+            LogHelper.d(TAG, "image byte array size = " + baos.toByteArray().length);
         }
 
         return baos.toByteArray();
@@ -82,7 +82,7 @@ public class FileUtils {
     public static byte[] toBytes(Bitmap bitmap, Bitmap.CompressFormat compressFormat) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(compressFormat, 100, baos);
-        Log.d(TAG, "image byte array size = " + baos.toByteArray().length);
+        LogHelper.d(TAG, "image byte array size = " + baos.toByteArray().length);
         return baos.toByteArray();
     }
 
@@ -112,13 +112,13 @@ public class FileUtils {
         File dir = new File(path);
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                Log.e(TAG, "ERROR: Creation of directory " + path
+                LogHelper.e(TAG, "ERROR: Creation of directory " + path
                         + " failed");
                 throw new Exception(
                         "Could not create folder" + path);
             }
         } else {
-            Log.d(TAG, "Created directory " + path);
+            LogHelper.d(TAG, "Created directory " + path);
         }
     }
 

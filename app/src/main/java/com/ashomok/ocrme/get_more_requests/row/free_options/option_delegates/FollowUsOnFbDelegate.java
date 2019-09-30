@@ -17,14 +17,14 @@ import com.ashomok.ocrme.get_more_requests.row.free_options.UiFreeOptionManaging
 import javax.inject.Inject;
 
 import static com.ashomok.ocrme.Settings.facebookPageUrl;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 3/6/18.
  */
 
 public class FollowUsOnFbDelegate extends UiFreeOptionManagingDelegate {
-    public static final String TAG = DEV_TAG + FollowUsOnFbDelegate.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(FollowUsOnFbDelegate.class);
     public static final String ID = "follow_us_on_fb";
     private static final String FOLLOW_US_ON_FB_DONE_TAG = "FOLLOW_US_ON_FB_DONE";
     private final GetMoreRequestsActivity activity;
@@ -67,7 +67,7 @@ public class FollowUsOnFbDelegate extends UiFreeOptionManagingDelegate {
 
     @Override
     protected void startTask() {
-        Log.d(TAG, "onstartTask");
+        LogHelper.d(TAG, "onstartTask");
         saveData();
         runFollowUs();
 

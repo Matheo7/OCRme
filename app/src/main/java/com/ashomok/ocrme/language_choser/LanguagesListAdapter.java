@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 12/11/16.
@@ -29,7 +29,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class LanguagesListAdapter extends RecyclerView.Adapter<LanguagesListAdapter.ViewHolder> {
 
-    private static final String TAG = DEV_TAG + LanguagesListAdapter.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(LanguagesListAdapter.class);
     private static final int MAX_CHECKED_ALLOWED = 3;
     private final StateChangedNotifier notifier;
     private List<String> allLanguageCodes;
@@ -62,7 +62,7 @@ public class LanguagesListAdapter extends RecyclerView.Adapter<LanguagesListAdap
         if (checkedLanguageCodes.size() < MAX_CHECKED_ALLOWED) {
             checkedLanguageCodes.add(language);
         } else {
-            Log.w(TAG, "attempt to add checked language when max amount reached");
+            LogHelper.w(TAG, "attempt to add checked language when max amount reached");
         }
 
         if (checkedLanguageCodes.size() > 0) {

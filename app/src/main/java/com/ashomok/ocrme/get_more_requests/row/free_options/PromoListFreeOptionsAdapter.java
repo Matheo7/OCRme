@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 3/2/18.
@@ -21,7 +21,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class PromoListFreeOptionsAdapter extends RecyclerView.Adapter<FreeOptionRowViewHolder>
         implements FreeOptionRowViewHolder.OnButtonClickListener {
-    private static final String TAG = DEV_TAG + PromoListFreeOptionsAdapter.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(PromoListFreeOptionsAdapter.class);
     private final List<PromoRowFreeOptionData> dataList;
 
     @Inject

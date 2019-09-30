@@ -13,14 +13,14 @@ import com.ashomok.ocrme.R;
 
 import java.util.List;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 2/2/18.
  */
 
 public class FeaturesListAdapter extends RecyclerView.Adapter<FeaturesListAdapter.ViewHolder> {
-    private static final String TAG = DEV_TAG + FeaturesListAdapter.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(FeaturesListAdapter.class);
     private final List<FeaturesList.FeatureModel> dataList;
     private final Context context;
 

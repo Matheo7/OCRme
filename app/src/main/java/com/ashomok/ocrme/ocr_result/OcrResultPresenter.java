@@ -17,10 +17,10 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class OcrResultPresenter implements OcrResultContract.Presenter, RateAppAskerCallback {
-    public static final String TAG = DEV_TAG + OcrResultPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(OcrResultPresenter.class);
     @Nullable
     private OcrResultContract.View view;
     private RateAppAsker rateAppAsker;
@@ -65,7 +65,7 @@ public class OcrResultPresenter implements OcrResultContract.Presenter, RateAppA
                                     view.populateUnifiedNativeAdView(ad);
                                 }
                             }, throwable -> {
-                                Log.e(TAG, throwable.getMessage());
+                                LogHelper.e(TAG, throwable.getMessage());
                             });
         }
     }

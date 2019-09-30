@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 2/14/18.
@@ -31,7 +31,7 @@ public class BillingProviderImpl implements BillingProvider {
     public static final String PREMIUM_YEARLY_SKU_ID = "one_year_subscription";
     public static final String SCAN_IMAGE_REQUESTS_5_SKU_ID = "scan_image_requests_batch_5";
     public static final String SCAN_IMAGE_REQUESTS_100_SKU_ID = "scan_image_requests_batch_100";
-    public static final String TAG = DEV_TAG + BillingProviderImpl.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(BillingProviderImpl.class);
     private static final int SCAN_IMAGE_REQUESTS_5_BATCH_SIZE = 5;
     private static final int SCAN_IMAGE_REQUESTS_100_BATCH_SIZE = 100;
     @Nullable
@@ -104,11 +104,11 @@ public class BillingProviderImpl implements BillingProvider {
                 (responseCode, skuDetailsList) -> {
 
                     if (responseCode != BillingClient.BillingResponse.OK) {
-                        Log.e(TAG, "Unsuccessful query for type: " + billingType
+                        LogHelper.e(TAG, "Unsuccessful query for type: " + billingType
                                 + ". Error code: " + responseCode);
                         onBillingError();
                     } else if (skuDetailsList == null || skuDetailsList.size() == 0) {
-                        Log.e(TAG, "skuDetailsList is empty");
+                        LogHelper.e(TAG, "skuDetailsList is empty");
                         onBillingError();
                     } else {
                         // If we successfully got SKUs - fill all rows
@@ -137,7 +137,7 @@ public class BillingProviderImpl implements BillingProvider {
     }
 
     private void onBillingError() {
-        Log.d(TAG, "onBillingError");
+        LogHelper.d(TAG, "onBillingError");
         int billingResponseCode = getBillingManager()
                 .getBillingClientResponseCode();
 
@@ -196,12 +196,12 @@ public class BillingProviderImpl implements BillingProvider {
             if (sku.equals(SCAN_IMAGE_REQUESTS_5_SKU_ID) || sku.equals(SCAN_IMAGE_REQUESTS_100_SKU_ID)) {
 
                 String token = purchase.getPurchaseToken();
-                Log.d(TAG, "Consumption started. Sku: " + sku + "Purchase token: "
+                LogHelper.d(TAG, "Consumption started. Sku: " + sku + "Purchase token: "
                         + token + ", result: " + result);
 
                 if (result == BillingClient.BillingResponse.OK) {
 
-                    Log.d(TAG, "Consumption successful. Provisioning.");
+                    LogHelper.d(TAG, "Consumption successful. Provisioning.");
 
                     int purchaseBatchSize = 0;
                     if (sku.equals(SCAN_IMAGE_REQUESTS_5_SKU_ID)) {
@@ -217,7 +217,7 @@ public class BillingProviderImpl implements BillingProvider {
                             String.valueOf(purchaseBatchSize));
                     showInfo(message);
                 } else {
-                    Log.d(TAG, "onConsumeFinished error code " + result);
+                    LogHelper.d(TAG, "onConsumeFinished error code " + result);
                 }
 
                 if (callback != null) {
@@ -228,7 +228,7 @@ public class BillingProviderImpl implements BillingProvider {
 
 //        @Override
 //        public void onConsumeFinished(String token, @BillingClient.BillingResponse int result) {
-//            Log.d(TAG, "Consumption finished. Purchase token: " + token + ", result: " + result);
+//            LogHelper.d(TAG, "Consumption finished. Purchase token: " + token + ", result: " + result);
 //            // Note: We know this is the SCAN_IMAGE_REQUESTS_SKU_ID, because it's the only one we
 //            // consume, so we don't
 //            // check if token corresponding to the expected sku was consumed.
@@ -240,7 +240,7 @@ public class BillingProviderImpl implements BillingProvider {
 //            if (result == BillingClient.BillingResponse.OK) {
 //                // Successfully consumed, so we apply the effects of the item in our
 //                // game world's logic, which in our case means filling the gas tank a bit
-//                Log.d(TAG, "Consumption successful. Provisioning.");
+//                LogHelper.d(TAG, "Consumption successful. Provisioning.");
 //
 //                int availableOcrRequests = ocrRequestsCounter.getAvailableOcrRequests();
 //                availableOcrRequests += SCAN_IMAGE_REQUESTS_BATCH_SIZE;
@@ -250,7 +250,7 @@ public class BillingProviderImpl implements BillingProvider {
 //                        String.valueOf(SCAN_IMAGE_REQUESTS_BATCH_SIZE));
 //                showInfo(message);
 //            } else {
-//                Log.d(TAG, "onConsumeFinished error code " + result);
+//                LogHelper.d(TAG, "onConsumeFinished error code " + result);
 //            }
 //
 //            if (callback != null) {

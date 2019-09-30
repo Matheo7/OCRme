@@ -40,7 +40,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 
 import static com.ashomok.ocrme.Settings.appPackageName;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 8/27/17.
@@ -52,7 +52,7 @@ public class TranslateActivity extends RxAppCompatActivity implements View.OnCli
         TranslateContract.View {
 
     public static final String EXTRA_TEXT = "com.ashomokdev.imagetotext.TEXT";
-    private static final String TAG = DEV_TAG + TranslateActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(TranslateActivity.class);
     public View mRootView;
     @Inject
     TranslatePresenter mPresenter;

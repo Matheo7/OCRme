@@ -10,10 +10,10 @@ import com.ashomok.ocrme.get_more_requests.row.paid_options.UiPaidOptionManaging
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class Batch5Delegate extends UiPaidOptionManagingDelegate {
-    public static final String TAG = DEV_TAG + Batch5Delegate.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(Batch5Delegate.class);
 
     @Inject
     public Batch5Delegate(BillingProviderImpl billingProvider, Context context) {

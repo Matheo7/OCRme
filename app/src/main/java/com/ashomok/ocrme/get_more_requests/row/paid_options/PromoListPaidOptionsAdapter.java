@@ -15,12 +15,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class PromoListPaidOptionsAdapter
         extends RecyclerView.Adapter<PaidOptionRowViewHolder>
         implements PaidOptionRowViewHolder.OnRowClickListener {
-    private static final String TAG = DEV_TAG + PromoListPaidOptionsAdapter.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(PromoListPaidOptionsAdapter.class);
 
     private List<SkuRowData> dataList = new ArrayList<>();
     private UiDelegatesFactory uiDelegatesFactory;

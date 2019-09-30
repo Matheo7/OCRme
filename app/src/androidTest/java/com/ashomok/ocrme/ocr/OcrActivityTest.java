@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.ashomok.ocrme.utils.FilesProvider.getGcsImageUri;
 import static com.ashomok.ocrme.utils.FilesProvider.getTestImages;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 12/25/16.
@@ -36,7 +36,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 @LargeTest
 public class OcrActivityTest {
 
-    private static final String TAG = DEV_TAG + OcrActivityTest.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(OcrActivityTest.class);
 
     @Rule
     public ActivityTestRule<OcrActivity> mActivityRule = new ActivityTestRule<>(

@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 import dagger.Lazy;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 import static dagger.internal.Preconditions.checkNotNull;
 
 /**
@@ -30,7 +30,7 @@ import static dagger.internal.Preconditions.checkNotNull;
  */
 
 public class LanguageOcrPresenter implements LanguageOcrContract.Presenter {
-    public static final String TAG = DEV_TAG + LanguageOcrPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(LanguageOcrPresenter.class);
     // This is provided lazily because its value is determined in the Activity's onCreate. By
     // calling it in takeView(), the value is guaranteed to be set.
     private final Lazy<ResponsableList<String>> checkedLanguageCodesLazy;

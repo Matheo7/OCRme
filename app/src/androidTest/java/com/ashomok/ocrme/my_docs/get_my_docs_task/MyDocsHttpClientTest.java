@@ -25,7 +25,7 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 
 import static com.ashomok.ocrme.utils.FirebaseUtils.getIdToken;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 12/19/17.
@@ -41,7 +41,7 @@ public class MyDocsHttpClientTest {
     private MyDocsHttpClient client;
     private String idToken;
     private MyDocsResponse response;
-    private static final String TAG = DEV_TAG + MyDocsHttpClientTest.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(MyDocsHttpClientTest.class);
 
     @Before
     public void init() {

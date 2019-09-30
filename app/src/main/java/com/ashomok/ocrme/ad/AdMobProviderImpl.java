@@ -26,7 +26,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 7/26/16.
@@ -34,7 +34,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class AdMobProviderImpl implements AdProvider {
 
-    private static final String TAG = DEV_TAG + AdMobProviderImpl.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(AdMobProviderImpl.class);
     private final Context context;
     private final int adid;
 
@@ -79,7 +79,7 @@ public class AdMobProviderImpl implements AdProvider {
             adView.loadAd(adRequest);
             parent.addView(adView);
         } else {
-            Log.e(TAG, "Ads can not been loaded programmaticaly. " +
+            LogHelper.e(TAG, "Ads can not been loaded programmaticaly. " +
                     "RelativeLayout and LinearLayout are supported as parent.");
         }
     }

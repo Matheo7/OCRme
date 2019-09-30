@@ -20,16 +20,14 @@ import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
 import com.ashomok.ocrme.update_to_premium.UpdateToPremiumActivity;
-
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
-
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by Iuliia on 30.08.2015.
  */
 public class AboutActivity extends AppCompatActivity {
 
-    private static final String TAG = DEV_TAG + AboutActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(AboutActivity.class);
     private TextView mTextView_email1;
     private TextView mTextView_email2;
 
@@ -82,7 +80,7 @@ public class AboutActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            LogHelper.e(TAG, e.getMessage());
             e.printStackTrace();
         }
     }

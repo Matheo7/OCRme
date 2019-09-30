@@ -4,13 +4,13 @@ import androidx.annotation.Nullable;
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 
 //currently redundant - exist for clean architecture
 public class TextPresenter implements TextContract.Presenter {
 
-    public static final String TAG = DEV_TAG + TextPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(TextPresenter.class);
 
     @Nullable
     private TextContract.View view;

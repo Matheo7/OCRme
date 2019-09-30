@@ -10,8 +10,6 @@ import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.ad.AdProvider;
-import com.ashomok.ocrme.ad.AdMobProviderImpl;
 import com.ashomok.ocrme.ad.NativeAdProviderImpl;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 
@@ -35,9 +33,9 @@ public abstract class MyDocsModule {
     static @StringRes
     int provideNativeAdId() {
         if (BuildConfig.DEBUG) {
-            return R.string.test_native;
+            return R.string.test_native_ad_id;
         } else {
-            return R.string.my_docs_native;
+            return R.string.my_docs_native_ad_id;
         }
     }
 

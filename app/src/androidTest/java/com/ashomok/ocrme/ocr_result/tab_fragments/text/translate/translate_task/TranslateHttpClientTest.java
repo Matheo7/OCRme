@@ -15,14 +15,14 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 9/6/17.
  */
 public class TranslateHttpClientTest {
     private TranslateHttpClient client;
-    private static final String TAG = DEV_TAG + TranslateHttpClientTest.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(TranslateHttpClientTest.class);
 
     @Before
     public void init() {
@@ -69,7 +69,7 @@ public class TranslateHttpClientTest {
         Single<SupportedLanguagesResponse> supportedLanguagesResponceSingle =
                 client.getSupportedLanguages("en")
                         .doOnEvent((supportedLanguagesResponce, throwable) -> {
-                                    Log.d(TAG, "getSupportedLanguages thread = "
+                                    LogHelper.d(TAG, "getSupportedLanguages thread = "
                                             + Thread.currentThread().getName());
                                 }
                         ).subscribeOn(Schedulers.io());
@@ -77,7 +77,7 @@ public class TranslateHttpClientTest {
         Single<TranslateResponse> translateResponseSingle =
                 client.translate("de", "наша мама добрая", null)
                         .doOnEvent((supportedLanguagesResponce, throwable) -> {
-                                    Log.d(TAG, "getSupportedLanguages thread = "
+                                    LogHelper.d(TAG, "getSupportedLanguages thread = "
                                             + Thread.currentThread().getName());
                                 }
                         ).subscribeOn(Schedulers.io());
@@ -90,10 +90,10 @@ public class TranslateHttpClientTest {
                         .observeOn(AndroidSchedulers.mainThread());// Will switch to Main-Thread when finished
 
         zipped.subscribe(myData -> {
-            Log.d(TAG, "zipped called with " + myData.toString()
+            LogHelper.d(TAG, "zipped called with " + myData.toString()
                     + "in thread " + Thread.currentThread().getName());
         }, throwable -> {
-            Log.e(TAG, throwable.getMessage());
+            LogHelper.e(TAG, throwable.getMessage());
         });
 
         Thread.sleep(3000);
