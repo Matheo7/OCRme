@@ -31,9 +31,9 @@ public abstract class MainModule {
     static @StringRes
     int provideAdId() {
         if (BuildConfig.DEBUG) {
-            return R.string.test_banner;
+            return R.string.test_banner_ad_id;
         } else {
-            return R.string.main_activity_banner;
+            return R.string.main_activity_banner_ad_id;
         }
     }
 

@@ -21,7 +21,7 @@ import java.util.List;
 import static com.ashomok.ocrme.ocr_result.tab_fragments.text.TextFragment.EXTRA_IMAGE_URL;
 import static com.ashomok.ocrme.ocr_result.tab_fragments.text.TextFragment.EXTRA_LANGUAGES;
 import static com.ashomok.ocrme.ocr_result.tab_fragments.text.TextFragment.EXTRA_TEXT;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 5/31/17.
@@ -30,12 +30,12 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 public class MyPagerAdapter extends FragmentPagerAdapter {
     private static int ITEM_COUNT = 3;
     private OcrResponse ocrData;
-    public static final String TAG = DEV_TAG + MyPagerAdapter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(MyPagerAdapter.class);
 
     MyPagerAdapter(FragmentManager fm, OcrResponse ocrData) {
         super(fm);
         this.ocrData = ocrData;
-        Log.d(TAG, "Adapter obtained ocr data: " + ocrData.toString());
+        LogHelper.d(TAG, "Adapter obtained ocr data: " + ocrData.toString());
 
         OcrResult ocrResult = ocrData.getOcrResult();
         //don't init imagePDFFragment for old docs - backward compatibility
@@ -77,7 +77,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
                     return null;
             }
         } else {
-            Log.e(TAG, "unexpected fragments count");
+            LogHelper.e(TAG, "unexpected fragments count");
             return null;
         }
     }

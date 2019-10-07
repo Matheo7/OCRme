@@ -11,7 +11,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.ashomok.ocrme.Settings.ENDPOINT;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 9/5/17.
@@ -19,7 +19,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 //singleton
 public class TranslateHttpClient {
-    private static final String TAG = DEV_TAG + TranslateHttpClient.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(TranslateHttpClient.class);
     private static final int CONNECTION_TIMEOUT_SEC = 90;
     private static TranslateHttpClient instance;
     private TranslateAPI translateAPI;

@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 12/28/17.
@@ -14,7 +14,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class AutoFitGridLayoutManager extends GridLayoutManager {
 
-    private static final String TAG = DEV_TAG + AutoFitGridLayoutManager.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(AutoFitGridLayoutManager.class);
     private int columnWidth;
     private boolean columnWidthChanged = true;
 
@@ -47,7 +47,7 @@ public class AutoFitGridLayoutManager extends GridLayoutManager {
         try {
             super.onLayoutChildren(recycler, state);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            LogHelper.e(TAG, e.getMessage());
         }
     }
 }

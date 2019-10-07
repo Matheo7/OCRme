@@ -12,7 +12,7 @@ import com.ashomok.ocrme.utils.NetworkUtils;
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 3/2/18.
@@ -20,7 +20,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class GetMoreRequestsPresenter implements GetMoreRequestsContract.Presenter {
 
-    public static final String TAG = DEV_TAG + GetMoreRequestsPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(GetMoreRequestsPresenter.class);
     @Nullable
     private GetMoreRequestsContract.View view;
 
@@ -50,7 +50,7 @@ public class GetMoreRequestsPresenter implements GetMoreRequestsContract.Present
 
         @Override
         public void onSkuRowDataUpdated() {
-            Log.d(TAG, "onSkuRowDataUpdated called");
+            LogHelper.d(TAG, "onSkuRowDataUpdated called");
             view.updatePaidOption(billingProvider.getSkuRowDataListForInAppPurchases());
         }
     };
@@ -69,7 +69,7 @@ public class GetMoreRequestsPresenter implements GetMoreRequestsContract.Present
 
     private void init() {
         billingProvider.setCallback(billingProviderCallback);
-        Log.d(TAG, "billing privider's init called");
+        LogHelper.d(TAG, "billing privider's init called");
 
         if (view != null) {
             checkConnection();

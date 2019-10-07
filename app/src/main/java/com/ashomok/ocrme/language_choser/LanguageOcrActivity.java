@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import dagger.android.support.DaggerAppCompatActivity;
 
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showInfo;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 10/22/17.
@@ -37,7 +37,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 //MINOR todo add async loader for fill recyclerviews LoaderManager.LoaderCallbacks<List<String>>
 public class LanguageOcrActivity extends DaggerAppCompatActivity implements LanguageOcrContract.View {
     public static final String CHECKED_LANGUAGE_CODES = "checked_languages_set";
-    private static final String TAG = DEV_TAG + LanguageOcrActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(LanguageOcrActivity.class);
     @Inject
     LanguageOcrPresenter mPresenter;
     @Inject

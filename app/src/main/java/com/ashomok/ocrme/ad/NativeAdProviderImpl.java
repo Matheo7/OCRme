@@ -19,14 +19,14 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class NativeAdProviderImpl extends AdMobProviderImpl {
     private Set<UnifiedNativeAd> nativeAds;
     private final Context context;
     private final int adid;
 
-    private static final String TAG = DEV_TAG + NativeAdProviderImpl.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(NativeAdProviderImpl.class);
 
     public Set<UnifiedNativeAd> getNativeAds() {
         return nativeAds;
@@ -48,7 +48,7 @@ public class NativeAdProviderImpl extends AdMobProviderImpl {
 
         builder.forUnifiedNativeAd(unifiedNativeAd -> {
             result.add(unifiedNativeAd);
-            Log.d(TAG, "native add loaded, total set size = " + result.size());
+            LogHelper.d(TAG, "native add loaded, total set size = " + result.size());
         });
 
         VideoOptions videoOptions = new VideoOptions.Builder()
@@ -64,7 +64,7 @@ public class NativeAdProviderImpl extends AdMobProviderImpl {
             @Override
             public void onAdFailedToLoad(int errorCode) {
 
-                Log.e(TAG, "onAdFailedToLoad,error code " + errorCode);
+                LogHelper.e(TAG, "onAdFailedToLoad,error code " + errorCode);
             }
         });
         AdLoader adLoader = builder.build();
@@ -80,7 +80,7 @@ public class NativeAdProviderImpl extends AdMobProviderImpl {
 
             builder.forUnifiedNativeAd(ad -> {
                         emitter.onSuccess(ad);
-                        Log.d(TAG, "Native ad loaded: " + ad.toString());
+                        LogHelper.d(TAG, "Native ad loaded: " + ad.toString());
                     }
             );
 
@@ -98,7 +98,7 @@ public class NativeAdProviderImpl extends AdMobProviderImpl {
                 @Override
                 public void onAdFailedToLoad(int errorCode) {
                     emitter.onError(new Throwable("onAdFailedToLoad,error code " + errorCode));
-                    Log.e(TAG, "onAdFailedToLoad,error code " + errorCode);
+                    LogHelper.e(TAG, "onAdFailedToLoad,error code " + errorCode);
                 }
             });
             AdLoader adLoader = builder.build();

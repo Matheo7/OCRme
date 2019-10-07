@@ -48,7 +48,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.ashomok.ocrme.ocr_result.OcrResultActivity.EXTRA_ERROR_MESSAGE;
 import static com.ashomok.ocrme.ocr_result.OcrResultActivity.EXTRA_OCR_RESPONSE;
 import static com.ashomok.ocrme.utils.FileUtils.toBytes;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 //import static com.ashomok.ocrme.Settings.firebaseFolderURL;
 
@@ -62,7 +62,7 @@ public class OcrActivity extends RxAppCompatActivity {
     public static final String EXTRA_LANGUAGES = "com.ashomokdev.imagetotext.ocr.LANGUAGES";
     public static final String EXTRA_IMAGE_URI = "com.ashomokdev.imagetotext.ocr.IMAGE_URI"; //image stored on device
     public static final String EXTRA_IMAGE_URL = "com.ashomokdev.imagetotext.ocr.IMAGE_URL"; //image stored on Firebase storage
-    public static final String TAG = DEV_TAG + OcrActivity.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(OcrActivity.class);
 
     @Nullable
     private Uri imageUri; //example content://com.ashomok.imagetotext.provider/my_images/DCIM/Camera/cropped.jpg Image stored on device - will be uploaded to firebase storage
@@ -83,7 +83,7 @@ public class OcrActivity extends RxAppCompatActivity {
         imageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
         if ((imageUri == null && imageUrl == null) ||
                 (imageUri != null && imageUrl != null)) {
-            Log.e(TAG, "You need provide ether imageUri or imageUrl");
+            LogHelper.e(TAG, "You need provide ether imageUri or imageUrl");
         }
 
         sourceLanguageCodes = getIntent().getStringArrayListExtra(EXTRA_LANGUAGES);
@@ -108,7 +108,7 @@ public class OcrActivity extends RxAppCompatActivity {
                 getContentResolver().delete(imageUri, null, null);
             }
             catch (Exception e){
-                Log.e(TAG, "error while deleting");
+                LogHelper.e(TAG, "error while deleting");
             }
         }
     }
@@ -139,7 +139,7 @@ public class OcrActivity extends RxAppCompatActivity {
 
             ocrSingle.subscribe(
                     myData -> {
-                        Log.d(TAG, "ocr returns " + myData.toString());
+                        LogHelper.d(TAG, "ocr returns " + myData.toString());
                         startOcrResultActivity(myData);
                         finish();
                     },
@@ -168,7 +168,7 @@ public class OcrActivity extends RxAppCompatActivity {
     }
 
     private void startOcrResultActivity(String errorMessage) {
-        Log.e(TAG, "ERROR: " + errorMessage);
+        LogHelper.e(TAG, "ERROR: " + errorMessage);
         Intent intent = new Intent(this, OcrResultActivity.class);
         intent.putExtra(EXTRA_ERROR_MESSAGE, errorMessage);
         startActivity(intent);
@@ -194,7 +194,7 @@ public class OcrActivity extends RxAppCompatActivity {
         Button cancel = findViewById(R.id.cancel_btn);
         RxView.clicks(cancel)
                 .subscribe(aVoid -> {
-                    Log.d(TAG, "OCR canceled by user");
+                    LogHelper.d(TAG, "OCR canceled by user");
                     setResult(RESULT_CANCELED_BY_USER);
                     finish();
                 });
@@ -209,7 +209,7 @@ public class OcrActivity extends RxAppCompatActivity {
                 //init image for uploaded source - url
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
-                Log.d(TAG, "image Url = " + imageUrl);
+                LogHelper.d(TAG, "image Url = " + imageUrl);
 
                 GlideApp.with(this)
                         .load(gsReference)
@@ -231,7 +231,7 @@ public class OcrActivity extends RxAppCompatActivity {
                         .into(imageView);
             } else {
                 //init image from device
-                Log.d(TAG, "image Uri = " + imageUri);
+                LogHelper.d(TAG, "image Uri = " + imageUri);
                 GlideApp.with(this)
                         .load(imageUri)
                         .error(R.drawable.ic_broken_image)
@@ -289,12 +289,12 @@ public class OcrActivity extends RxAppCompatActivity {
                             .putBytes(byteArray)
                             .addOnSuccessListener(taskSnapshot -> {
                                 String path = taskSnapshot.getMetadata().getReference().getPath();
-                                Log.d(TAG, "uploadPhoto:onSuccess:" + path);
+                                LogHelper.d(TAG, "uploadPhoto:onSuccess:" + path);
                                 String gcsImageUrl = BuildConfig.FIREBASE_FOLDER_URL + path;
                                 emitter.onSuccess(gcsImageUrl);
                             })
                             .addOnFailureListener(e -> {
-                                Log.e(TAG, "uploadPhoto:onError", e);
+                                LogHelper.e(TAG, "uploadPhoto:onError", e);
                                 emitter.onError(e);
                             });
                 }
@@ -311,7 +311,7 @@ public class OcrActivity extends RxAppCompatActivity {
         } else if (lastPathSegment.toLowerCase().contains("png")) {
             compressFormat = Bitmap.CompressFormat.PNG;
         } else {
-            Log.e(TAG, "Unknown image extension");
+            LogHelper.e(TAG, "Unknown image extension");
         }
         return compressFormat;
     }

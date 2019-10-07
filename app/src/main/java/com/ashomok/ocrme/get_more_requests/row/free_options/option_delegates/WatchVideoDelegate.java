@@ -12,7 +12,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 import static com.google.android.gms.ads.AdRequest.ERROR_CODE_NO_FILL;
 
 /**
@@ -22,7 +22,7 @@ import static com.google.android.gms.ads.AdRequest.ERROR_CODE_NO_FILL;
 //todo Forward lifecycle events https://developers.google.com/admob/android/rewarded-video -
 // impossible now due to no delegate from activity - minor bug
 public class WatchVideoDelegate extends UiFreeOptionManagingDelegate implements RewardedVideoAdListener {
-    public static final String TAG = DEV_TAG + WatchVideoDelegate.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(WatchVideoDelegate.class);
     public static final String ID = "watch_video";
     private final GetMoreRequestsActivity activity;
     private final OcrRequestsCounter ocrRequestsCounter;
@@ -44,7 +44,7 @@ public class WatchVideoDelegate extends UiFreeOptionManagingDelegate implements 
     private void loadRewardedVideoAd() {
         if (!mRewardedVideoAd.isLoaded()) {
             String rewardedVideoAdAppId =
-                    activity.getResources().getString(R.string.rewarded_video_ad_unit_id);
+                    activity.getResources().getString(R.string.rewarded_video_ad_id);
             mRewardedVideoAd.loadAd(rewardedVideoAdAppId, new AdRequest.Builder().build());
         }
     }

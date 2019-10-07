@@ -27,7 +27,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 12/26/17.
@@ -35,7 +35,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final String TAG = DEV_TAG + RecyclerViewAdapter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(RecyclerViewAdapter.class);
     private static final int DOC = 0;
     private static final int NATIVE_AD = 1;
     private final MyDocsActivity.RecyclerViewCallback callback;

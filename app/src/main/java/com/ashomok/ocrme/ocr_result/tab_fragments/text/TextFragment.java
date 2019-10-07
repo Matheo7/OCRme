@@ -45,7 +45,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static com.ashomok.ocrme.Settings.appPackageName;
 import static com.ashomok.ocrme.language_choser.LanguageOcrActivity.CHECKED_LANGUAGE_CODES;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 5/31/17.
@@ -58,7 +58,7 @@ public class TextFragment extends DaggerFragment implements View.OnClickListener
     public static final String EXTRA_IMAGE_URL = "com.ashomokdev.imagetotext.IMAGE";
     public static final String EXTRA_LANGUAGES = "com.ashomokdev.imagetotext.LANGUAGES";
     private static final int LANGUAGE_ACTIVITY_REQUEST_CODE = 1;
-    private static final String TAG = DEV_TAG + TextFragment.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(TextFragment.class);
     private String textResult;
     private String imageUrl;
     private ArrayList<String> languages;

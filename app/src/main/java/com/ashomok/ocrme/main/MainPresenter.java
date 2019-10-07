@@ -27,14 +27,14 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import static com.ashomok.ocrme.Settings.isPremium;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 2/14/18.
  */
 
 public class MainPresenter implements MainContract.Presenter {
-    public static final String TAG = DEV_TAG + MainPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(MainPresenter.class);
 
     @Nullable
     public MainContract.View view;
@@ -46,7 +46,7 @@ public class MainPresenter implements MainContract.Presenter {
     private BillingProviderCallback billingProviderCallback = new BillingProviderCallback() {
         @Override
         public void onPurchasesUpdated() {
-            Log.d(TAG, "onPurchasesUpdated()");
+            LogHelper.d(TAG, "onPurchasesUpdated()");
             boolean isPremium = billingProvider.isPremiumMonthlySubscribed()
                     || billingProvider.isPremiumYearlySubscribed();
             onPremiumStatusUpdated(isPremium);

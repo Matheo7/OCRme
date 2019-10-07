@@ -23,7 +23,7 @@ import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 5/30/17.
@@ -32,7 +32,7 @@ public class OcrResultActivity
         extends DaggerAppCompatActivity implements OcrResultContract.View {
     public static final String EXTRA_OCR_RESPONSE = "com.ashomokdev.imagetotext.OCR_RESPONCE";
     public static final String EXTRA_ERROR_MESSAGE = "com.ashomokdev.imagetotext.ERROR_MESSAGE";
-    private static final String TAG = DEV_TAG + OcrResultActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(OcrResultActivity.class);
 
     @Inject
     OcrResultContract.Presenter mPresenter;
@@ -109,7 +109,7 @@ public class OcrResultActivity
 
     @Override
     public void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd) {
-        Log.d(TAG, "on populateUnifiedNativeAdView");
+        LogHelper.d(TAG, "on populateUnifiedNativeAdView");
         View adView = findViewById(R.id.native_ad);
         adView.setVisibility(View.VISIBLE);
         NativeAdViewHolder nativeAdViewHolder = new NativeAdViewHolder(adView);

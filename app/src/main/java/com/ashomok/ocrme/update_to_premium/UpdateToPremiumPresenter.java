@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 import static com.ashomok.ocrme.billing.BillingProviderImpl.PREMIUM_MONTHLY_SKU_ID;
 import static com.ashomok.ocrme.billing.BillingProviderImpl.PREMIUM_YEARLY_SKU_ID;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 1/29/18.
@@ -25,7 +25,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 
 public class UpdateToPremiumPresenter implements UpdateToPremiumContract.Presenter {
 
-    public static final String TAG = DEV_TAG + UpdateToPremiumPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(UpdateToPremiumPresenter.class);
     @Nullable
     private UpdateToPremiumContract.View view;
 

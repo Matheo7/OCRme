@@ -37,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.ashomok.ocrme.Settings.appPackageName;
 import static com.ashomok.ocrme.utils.FirebaseUtils.getIdToken;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 import static dagger.internal.Preconditions.checkNotNull;
 
 /**
@@ -50,7 +50,7 @@ import static dagger.internal.Preconditions.checkNotNull;
  */
 public class MyDocsPresenter implements MyDocsContract.Presenter {
 
-    public static final String TAG = DEV_TAG + MyDocsPresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(MyDocsPresenter.class);
     @NonNull
     private final MyDocsHttpClient httpClient;
     @Nullable
@@ -81,7 +81,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
 
     @Override
     public void initWithDocs() {
-        Log.d(TAG, "on initWithDocs");
+        LogHelper.d(TAG, "on initWithDocs");
         if (view != null) {
             if (!initialized) {
                 if (isOnline()) {
@@ -118,7 +118,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
 
     private void callApiForDocs(
             MyDocsHttpClient httpClient, String idToken, String startCursor, boolean rewrite) {
-        Log.d(TAG, "callApiForDocs called");
+        LogHelper.d(TAG, "callApiForDocs called");
         if (view != null) {
             Single<MyDocsResponse> myDocs =
                     httpClient.getMyDocs(idToken, startCursor);
@@ -138,7 +138,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
                                     updateView(myDocsResponse, rewrite);
                                     updateCursor(myDocsResponse.getEndCursor());
                                 } else {
-                                    Log.e(TAG, "Unknown status received");
+                                    LogHelper.e(TAG, "Unknown status received");
                                     view.showError(R.string.unknown_error);
                                 }
                             },
@@ -180,7 +180,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
     // This method probably sends out a network request and appends new data items to your adapter.
     @Override
     public void loadMoreDocs() {
-        Log.d(TAG, "on loadMoreDocs");
+        LogHelper.d(TAG, "on loadMoreDocs");
         if (view != null) {
             if (isOnline()) {
                 if (!isLoadingCompleted()) {
@@ -264,7 +264,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
                     //add ads
                     int random = (int) (Math.random() * 2 + 1); //1 or 2 random
                     int position = dataList.size() - random;
-                    Log.d(TAG, "Native ad added to position: " + position + " adsPresentedCount: "
+                    LogHelper.d(TAG, "Native ad added to position: " + position + " adsPresentedCount: "
                             + adsPresentedCount + " dataList size: " + dataList.size());
 
                     UnifiedNativeAd adItem = nativeAdSet.iterator().next();

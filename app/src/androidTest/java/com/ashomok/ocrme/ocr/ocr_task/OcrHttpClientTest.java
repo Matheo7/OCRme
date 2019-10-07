@@ -14,7 +14,7 @@ import io.reactivex.Single;
 
 import static com.ashomok.ocrme.utils.FilesProvider.getGcsImageUri;
 import static com.ashomok.ocrme.utils.FirebaseUtils.getIdToken;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 9/19/17.
@@ -23,7 +23,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 public class OcrHttpClientTest {
 
     private OcrHttpClient client;
-    private static final String TAG = DEV_TAG + OcrHttpClientTest.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(OcrHttpClientTest.class);
     private String gcsImageUri;
 
     @Before

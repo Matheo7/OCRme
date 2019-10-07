@@ -62,14 +62,14 @@ import dagger.android.AndroidInjection;
 import static com.ashomok.ocrme.language_choser.LanguageOcrActivity.CHECKED_LANGUAGE_CODES;
 import static com.ashomok.ocrme.ocr.OcrActivity.RESULT_CANCELED_BY_USER;
 import static com.ashomok.ocrme.utils.FileUtils.createFile;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 public class MainActivity extends AuthUiActivity implements
         SignOutDialogFragment.OnSignedOutListener,
         View.OnClickListener,
         MainContract.View {
 
-    private static final String TAG = DEV_TAG + MainActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(MainActivity.class);
     private static final int LANGUAGE_ACTIVITY_REQUEST_CODE = 1;
     private static final int CaptureImage_REQUEST_CODE = 2;
     private static final int OCR_Activity_REQUEST_CODE = 3;
@@ -392,7 +392,7 @@ public class MainActivity extends AuthUiActivity implements
 
     @Override
     public void onBackPressed() {
-        Log.d(TAG, "onBackPressed()" + getFragmentManager().getBackStackEntryCount());
+        LogHelper.d(TAG, "onBackPressed()" + getFragmentManager().getBackStackEntryCount());
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             super.onBackPressed();
         } else {
@@ -454,7 +454,7 @@ public class MainActivity extends AuthUiActivity implements
      */
     @Override
     public void updateUi(boolean isUserSignedIn) {
-        Log.d(TAG, "Update UI. Is user signed in " + isUserSignedIn);
+        LogHelper.d(TAG, "Update UI. Is user signed in " + isUserSignedIn);
         updateNavigationDrawerForSignIn(isUserSignedIn);
         updateMainScreen(isUserSignedIn);
     }
@@ -588,7 +588,7 @@ public class MainActivity extends AuthUiActivity implements
 
     @Override
     public void updateView(boolean isPremium) {
-        Log.d(TAG, "Update UI. Is premium " + isPremium);
+        LogHelper.d(TAG, "Update UI. Is premium " + isPremium);
 
         requestCounterLayout.setVisibility(isPremium ? View.INVISIBLE : View.VISIBLE);
         updateNavigationDrawerForPremium(isPremium);

@@ -8,14 +8,14 @@ import com.ashomok.ocrme.get_more_requests.row.free_options.option_delegates.Wat
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 3/2/18.
  */
 
 public class PromoListFreeOptions {
-    public static final String TAG = DEV_TAG + PromoListFreeOptions.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(PromoListFreeOptions.class);
 
     public static List<PromoRowFreeOptionData> getList() {
         List<PromoRowFreeOptionData> result = new ArrayList<>();

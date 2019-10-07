@@ -18,7 +18,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import static androidx.test.InstrumentationRegistry.getInstrumentation;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 9/19/17.
@@ -28,7 +28,7 @@ public class FilesProvider {
 
     private static final String DATA_PATH = Environment.getExternalStorageDirectory().toString() + "/ImageToText/";
     private static final String TEST_IMGS = "test_imgs";
-    private static final String TAG = DEV_TAG + FilesProvider.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(FilesProvider.class);
 
     private static final String gcsImageUri = "gs://ocrme-77a2b.appspot.com/test/ru.jpg";
 
@@ -78,7 +78,7 @@ public class FilesProvider {
                 files.add(pathToDataFile);
             }
         } catch (IOException e) {
-            Log.e(TAG, "Was unable to copy files to test_imgs " + e.toString());
+            LogHelper.e(TAG, "Was unable to copy files to test_imgs " + e.toString());
             Assert.fail("Was unable to copy files to test_imgs " + e.toString());
 
         }
@@ -97,7 +97,7 @@ public class FilesProvider {
                 File dir = new File(path);
                 if (!dir.exists()) {
                     if (!dir.mkdirs()) {
-                        Log.e(TAG, "ERROR: Creation of directory " + path
+                        LogHelper.e(TAG, "ERROR: Creation of directory " + path
                                 + " on sdcard failed");
                         Assert.fail("ERROR: Creation of directory " + path
                                 + " on sdcard failed");

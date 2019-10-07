@@ -38,7 +38,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 
 import static com.ashomok.ocrme.ocr_result.OcrResultActivity.EXTRA_OCR_RESPONSE;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 8/18/17.
@@ -50,7 +50,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 public class MyDocsActivity extends AuthUiActivity implements View.OnClickListener, MyDocsContract.View {
 
     private static final int DELETE_TAG = 1;
-    private static final String TAG = DEV_TAG + MyDocsActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(MyDocsActivity.class);
     boolean isMultiSelect = false;
     AlertDialogHelper alertDialogHelper;
 
@@ -271,7 +271,7 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
     }
 
     private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView called");
+        LogHelper.d(TAG, "initRecyclerView called");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         AutoFitGridLayoutManager layoutManager =
                 new AutoFitGridLayoutManager(this, 500);
@@ -289,7 +289,7 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (! recyclerView.canScrollVertically(1)){ //1 for down
-                     Log.d(TAG, "onLoadMore");
+                     LogHelper.d(TAG, "onLoadMore");
                     mPresenter.loadMoreDocs();
                 }
             }
@@ -335,7 +335,7 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
      */
     @Override
     public void updateUi(boolean isUserSignedIn) {
-        Log.d(TAG, "Update UI. Is user signed in " + isUserSignedIn);
+        LogHelper.d(TAG, "Update UI. Is user signed in " + isUserSignedIn);
         View askLoginView = findViewById(R.id.ask_login);
         View myDocsView = findViewById(R.id.my_docs);
 
@@ -380,7 +380,7 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
     @Override
     public void addNewLoadedDocs(List<OcrResult> newLoadedDocs) {
 
-        Log.d(TAG, "addNewLoadedDocs called with size = " + newLoadedDocs.size());
+        LogHelper.d(TAG, "addNewLoadedDocs called with size = " + newLoadedDocs.size());
         int positionStart = dataList.size() - 1;
         dataList.addAll(newLoadedDocs);
         adapter.notifyItemRangeInserted(positionStart, newLoadedDocs.size());
@@ -397,7 +397,7 @@ public class MyDocsActivity extends AuthUiActivity implements View.OnClickListen
 
     @Override
     public void clearDocsList() {
-        Log.d(TAG, "clearDocsList called");
+        LogHelper.d(TAG, "clearDocsList called");
         int size = dataList.size();
         dataList.clear();
         adapter.notifyItemRangeRemoved(0, size);

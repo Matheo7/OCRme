@@ -25,7 +25,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 3/2/18.
@@ -35,7 +35,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 public class GetMoreRequestsActivity extends AuthUiActivity
         implements GetMoreRequestsContract.View {
 
-    private static final String TAG = DEV_TAG + GetMoreRequestsActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(GetMoreRequestsActivity.class);
     @Inject
     GetMoreRequestsPresenter mPresenter;
 
@@ -92,7 +92,7 @@ public class GetMoreRequestsActivity extends AuthUiActivity
 
     @Override
     public void updatePaidOption(List<SkuRowData> dataList) {
-        Log.d(TAG, "updatePaidOption called");
+        LogHelper.d(TAG, "updatePaidOption called");
 
         promoListPaidOptionsAdapter.setDataList(dataList);
         promoListPaidOptionsAdapter.notifyDataSetChanged();

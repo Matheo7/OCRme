@@ -10,14 +10,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Inject;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 3/6/18.
  */
 
 public class LoginToSystemDelegate extends UiFreeOptionManagingDelegate {
-    public static final String TAG = DEV_TAG + LoginToSystemDelegate.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(LoginToSystemDelegate.class);
     public static final String ID = "login_to_system";
     private static final String LOGIN_TO_SYSTEM_DONE_TAG = "LOGIN_TO_SYSTEM_DONE";
     private final OcrRequestsCounter ocrRequestsCounter;
@@ -36,7 +36,7 @@ public class LoginToSystemDelegate extends UiFreeOptionManagingDelegate {
 
     @Override
     protected void startTask() {
-        Log.d(TAG, "onStartTask");
+        LogHelper.d(TAG, "onStartTask");
         saveData();
         activity.signIn();
 

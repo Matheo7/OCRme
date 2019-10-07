@@ -24,12 +24,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.ashomok.ocrme.utils.FirebaseUtils.getIdToken;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 import static dagger.internal.Preconditions.checkNotNull;
 
 public class TranslatePresenter implements TranslateContract.Presenter {
 
-    public static final String TAG = DEV_TAG + TranslatePresenter.class.getSimpleName();
+    public static final String TAG = LogHelper.makeLogTag(TranslatePresenter.class);
 
     @NonNull
     private final TranslateHttpClient httpClient;
@@ -95,7 +95,7 @@ public class TranslatePresenter implements TranslateContract.Presenter {
 
                                 }, throwable -> {
                                     String errorMessage = throwable.getMessage();
-                                    Log.e(TAG, errorMessage);
+                                    LogHelper.e(TAG, errorMessage);
                                     view.showError(errorMessage);
                                 });
             } else {
@@ -111,18 +111,18 @@ public class TranslatePresenter implements TranslateContract.Presenter {
         Single<SupportedLanguagesResponse> supportedLanguagesResponceSingle =
                 httpClient.getSupportedLanguages(deviceLanguageCode)
                         .doOnEvent((supportedLanguagesResponce, throwable) -> {
-                                    Log.d(TAG, "getSupportedLanguages called in thread: "
+                                    LogHelper.d(TAG, "getSupportedLanguages called in thread: "
                                             + Thread.currentThread().getName());
                                 }
                         ).subscribeOn(Schedulers.io());
 
 
-        Log.d(TAG, "callInitTranslate");
+        LogHelper.d(TAG, "callInitTranslate");
         //second---------------------------------------------
         Single<TranslateResponse> translateResponseSingle =
                 httpClient.translate(deviceLanguageCode, mInputText, userIdToken)
                         .doOnEvent((supportedLanguagesResponce, throwable) -> {
-                                    Log.d(TAG, "translate called in thread: "
+                                    LogHelper.d(TAG, "translate called in thread: "
                                             + Thread.currentThread().getName());
                                 }
                         ).subscribeOn(Schedulers.io());
@@ -138,14 +138,14 @@ public class TranslatePresenter implements TranslateContract.Presenter {
         zipped.compose(((TranslateActivity) view).bindToLifecycle())
                 .subscribe(
                         myData -> {
-                            Log.d(TAG,
+                            LogHelper.d(TAG,
                                     "ContourEdgePointsResponse + TranslateResponse zipped returns "
                                             + myData.toString());
                             updateUI(myData);
                         },
                         throwable -> {
                             String errorMessage = throwable.getMessage();
-                            Log.e(TAG, errorMessage);
+                            LogHelper.e(TAG, errorMessage);
                             view.showError(errorMessage);
                         });
     }
@@ -156,7 +156,7 @@ public class TranslatePresenter implements TranslateContract.Presenter {
 
         if (NetworkUtils.isOnline(context)) {
 
-            Log.d(TAG, "callTranslate");
+            LogHelper.d(TAG, "callTranslate");
             Single<TranslateResponse> translateResponseSingle =
                     httpClient.translate(
                             sourceLanguageCode, targetLanguageCode, sourceText, userIdToken)
@@ -167,12 +167,12 @@ public class TranslatePresenter implements TranslateContract.Presenter {
                     .compose(((TranslateActivity) view).bindUntilEvent(ActivityEvent.DESTROY)) //specify the lifecycle event where RxLifecycle should terminate an Observable
                     .subscribe(
                             myData -> {
-                                Log.d(TAG, "translate returns " + myData.toString());
+                                LogHelper.d(TAG, "translate returns " + myData.toString());
                                 updateUI(myData);
                             },
                             throwable -> {
                                 String errorMessage = throwable.getMessage();
-                                Log.e(TAG, errorMessage);
+                                LogHelper.e(TAG, errorMessage);
                                 view.showError(errorMessage);
                             });
         } else {
@@ -230,7 +230,7 @@ public class TranslatePresenter implements TranslateContract.Presenter {
             this.sourceText = sourceText;
 
             if (sourceText == null || sourceText.length() < 1) {
-                Log.d(TAG, "called with empty source text");
+                LogHelper.d(TAG, "called with empty source text");
             } else {
                 callTranslate();
             }
@@ -240,7 +240,7 @@ public class TranslatePresenter implements TranslateContract.Presenter {
     @Override
     public void updateSourceLanguageCode(int index) {
 
-        Log.d(TAG, "updateSourceLanguageCode called with index = " + index);
+        LogHelper.d(TAG, "updateSourceLanguageCode called with index = " + index);
         if (languages != null) {
             sourceLanguageCode = languages.get(index).getCode();
 
@@ -256,7 +256,7 @@ public class TranslatePresenter implements TranslateContract.Presenter {
     @Override
     public void updateTargetLanguageCode(int index) {
 
-        Log.d(TAG, "updateTargetLanguageCode called with index = " + index);
+        LogHelper.d(TAG, "updateTargetLanguageCode called with index = " + index);
 
         if (languages != null) {
             targetLanguageCode = languages.get(index).getCode();

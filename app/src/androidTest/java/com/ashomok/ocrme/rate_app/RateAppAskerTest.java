@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 import static com.ashomok.ocrme.rate_app.RateAppAsker.RATE_APP_COUNT;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -29,7 +29,7 @@ public class RateAppAskerTest  {
 
     private RateAppAsker rateAppAsker;
 
-    private static final String TAG = DEV_TAG + RateAppAskerTest.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(RateAppAskerTest.class);
 
     @Before
     public void setUp() {
@@ -47,7 +47,7 @@ public class RateAppAskerTest  {
         editor.putInt(context.getString(R.string.times_app_was_used), 0);
         editor.apply();
         rateAppAsker.init(rateAppDialogFragment -> {
-            Log.d(TAG, "dialog showed");
+            LogHelper.d(TAG, "dialog showed");
             throw new AssertionError("dialog showed when not expected");
         });
 
@@ -62,7 +62,7 @@ public class RateAppAskerTest  {
         editor.putInt(context.getString(R.string.times_app_was_used), RATE_APP_COUNT);
         editor.apply();
         rateAppAsker.init(rateAppDialogFragment -> {
-            Log.d(TAG, "dialog showed");
+            LogHelper.d(TAG, "dialog showed");
             Assert.assertNotNull(rateAppDialogFragment);
         });
 

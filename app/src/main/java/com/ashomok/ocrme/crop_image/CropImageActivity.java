@@ -26,7 +26,7 @@ import static com.ashomok.ocrme.ocr.OcrActivity.EXTRA_LANGUAGES;
 import static com.ashomok.ocrme.utils.FileUtils.createFileForUri;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showError;
 import static com.ashomok.ocrme.utils.InfoSnackbarUtil.showWarning;
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 11/28/17.
@@ -36,7 +36,7 @@ public class CropImageActivity extends AppCompatActivity
         implements CropImageView.OnCropImageCompleteListener {
 
     public static final String EXTRA_IMAGE_URI = "com.ashomokdev.imagetotext.crop_image.IMAGE_URI";
-    private static final String TAG = DEV_TAG + CropImageActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(CropImageActivity.class);
     private final static String cropped_file_extension = ".jpg";
     private CropImageView mCropImageView;
     private Uri imageUri;

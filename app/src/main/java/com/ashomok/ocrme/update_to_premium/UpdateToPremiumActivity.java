@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
-import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
+import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 1/29/18.
@@ -30,7 +30,7 @@ import static com.ashomok.ocrme.utils.LogUtil.DEV_TAG;
 public class UpdateToPremiumActivity extends RxAppCompatActivity
         implements UpdateToPremiumContract.View {
 
-    private static final String TAG = DEV_TAG + UpdateToPremiumActivity.class.getSimpleName();
+    private static final String TAG = LogHelper.makeLogTag(UpdateToPremiumActivity.class);
     @Inject
     UpdateToPremiumPresenter mPresenter;
 
