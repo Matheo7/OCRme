@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,7 +35,7 @@ import com.ashomok.ocrme.ExitDialogFragment;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
 import com.ashomok.ocrme.about.AboutActivity;
-import com.ashomok.ocrme.ad.AdMobProviderImpl;
+import com.ashomok.ocrme.ad.AdMobProvider;
 import com.ashomok.ocrme.crop_image.CropImageActivity;
 import com.ashomok.ocrme.firebaseUiAuth.AuthUiActivity;
 import com.ashomok.ocrme.firebaseUiAuth.SignOutDialogFragment;
@@ -89,8 +88,6 @@ public class MainActivity extends AuthUiActivity implements
     };
     @Inject
     MainPresenter mPresenter;
-    @Inject
-    AdMobProviderImpl adMobContainer;
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
     private Uri imageUri;
@@ -601,15 +598,12 @@ public class MainActivity extends AuthUiActivity implements
     }
 
     @Override
-    public void showAds() {
-        showBannerAd();
+    public void showAds(AdMobProvider adMobContainer) {
+        adMobContainer.initBottomBannerAd(findViewById(R.id.ads_container));
     }
 
     private void updateRemoveAdMenuItem() {
         invalidateOptionsMenu();
     }
 
-    private void showBannerAd() {
-        adMobContainer.initBottomBannerAd(findViewById(R.id.ads_container));
-    }
 }

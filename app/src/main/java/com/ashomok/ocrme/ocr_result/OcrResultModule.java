@@ -6,7 +6,7 @@ import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.ad.NativeAdProviderImpl;
+import com.ashomok.ocrme.ad.AdMobProvider;
 import com.ashomok.ocrme.ocr_result.tab_fragments.image_pdf.ImagePdfContract;
 import com.ashomok.ocrme.ocr_result.tab_fragments.image_pdf.ImagePdfFragment;
 import com.ashomok.ocrme.ocr_result.tab_fragments.image_pdf.ImagePdfPresenter;
@@ -47,17 +47,17 @@ public abstract class OcrResultModule {
     abstract ImagePdfFragment imagePdfFragment();
 
     @Provides
-    static NativeAdProviderImpl provideNativeAdProviderImpl(Context context, @StringRes int adMobId) {
-        return new NativeAdProviderImpl(context, adMobId);
+    static AdMobProvider provideAdMobProviderImpl(Context context, @StringRes int adMobId) {
+        return new AdMobProvider(context, adMobId);
     }
 
     @Provides
     static @StringRes
-    int provideNativeAdId() {
+    int provideBannerAdId() {
         if (BuildConfig.DEBUG) {
-            return R.string.test_native_ad_id;
+            return R.string.test_banner_ad_id;
         } else {
-            return R.string.result_native_ad_id;
+            return R.string.result_banner_ad_id;
         }
     }
 }

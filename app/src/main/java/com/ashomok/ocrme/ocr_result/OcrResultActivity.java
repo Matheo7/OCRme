@@ -2,28 +2,23 @@ package com.ashomok.ocrme.ocr_result;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ashomok.ocrme.R;
+import com.ashomok.ocrme.ad.AdMobProvider;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResponse;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.ashomok.ocrme.utils.LogHelper;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
-
-import com.ashomok.ocrme.utils.LogHelper;
 
 /**
  * Created by iuliia on 5/30/17.
@@ -33,6 +28,7 @@ public class OcrResultActivity
     public static final String EXTRA_OCR_RESPONSE = "com.ashomokdev.imagetotext.OCR_RESPONCE";
     public static final String EXTRA_ERROR_MESSAGE = "com.ashomokdev.imagetotext.ERROR_MESSAGE";
     private static final String TAG = LogHelper.makeLogTag(OcrResultActivity.class);
+
 
     @Inject
     OcrResultContract.Presenter mPresenter;
@@ -66,6 +62,8 @@ public class OcrResultActivity
         }
 
         mPresenter.takeView(this);
+
+
     }
 
     @Override
@@ -108,42 +106,10 @@ public class OcrResultActivity
     }
 
     @Override
-    public void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd) {
-        LogHelper.d(TAG, "on populateUnifiedNativeAdView");
-        View adView = findViewById(R.id.native_ad);
-        adView.setVisibility(View.VISIBLE);
-        NativeAdViewHolder nativeAdViewHolder = new NativeAdViewHolder(adView);
-
-//         The headline is guaranteed to be in every UnifiedNativeAd.
-        ((TextView) nativeAdViewHolder.adView.getHeadlineView()).setText(nativeAd.getHeadline());
-
-        if (nativeAd.getCallToAction() == null) {
-            nativeAdViewHolder.adView.getCallToActionView().setVisibility(View.GONE);
-        } else {
-            nativeAdViewHolder.adView.getCallToActionView().setVisibility(View.VISIBLE);
-            ((Button) nativeAdViewHolder.adView.getCallToActionView()).setText(nativeAd.getCallToAction());
-        }
-
-        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
-        // check before trying to display them.
-        if (nativeAd.getBody() == null) {
-            nativeAdViewHolder.adView.getBodyView().setVisibility(View.GONE);
-        } else {
-            nativeAdViewHolder.adView.getBodyView().setVisibility(View.VISIBLE);
-            ((TextView) nativeAdViewHolder.adView.getBodyView()).setText(nativeAd.getBody());
-        }
-
-        if (nativeAd.getIcon() == null) {
-            nativeAdViewHolder.adView.getIconView().setVisibility(View.GONE);
-        } else {
-            ((ImageView) nativeAdViewHolder.adView.getIconView()).setImageDrawable(
-                    nativeAd.getIcon().getDrawable());
-            nativeAdViewHolder.adView.getIconView().setVisibility(View.VISIBLE);
-        }
-
-        nativeAdViewHolder.adView.setNativeAd(nativeAd);
+    public void showAds(AdMobProvider adMobProvider) {
+        LinearLayout linearLayout = findViewById(R.id.ad_container);
+        adMobProvider.initBottomBannerAd(linearLayout);
     }
-
 
     private void initTabLayout(OcrResponse ocrData) {
         TabLayout tabLayout = findViewById(R.id.tab_layout);

@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.annimon.stream.Optional;
+import com.ashomok.ocrme.ad.AdMobProvider;
 import com.ashomok.ocrme.di_dagger.BasePresenter;
 import com.tbruyelle.rxpermissions2.Permission;
 
@@ -39,7 +40,7 @@ public class MainContract {
 
         void startGalleryChooser();
 
-        void showAds();
+        void showAds(AdMobProvider adMobContainer);
     }
 
     interface Presenter extends BasePresenter<MainContract.View> {

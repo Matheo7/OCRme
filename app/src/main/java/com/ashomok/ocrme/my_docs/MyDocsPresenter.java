@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +17,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
-import com.ashomok.ocrme.ad.AdProvider;
-import com.ashomok.ocrme.ad.NativeAdProviderImpl;
+import com.ashomok.ocrme.ad.NativeAdProvider;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsResponse;
 import com.ashomok.ocrme.ocr.ocr_task.OcrResult;
@@ -60,7 +58,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
     private String idToken;
     private String startCursor;
     private boolean initialized = false;
-    private NativeAdProviderImpl adProvider;
+    private NativeAdProvider adProvider;
 
 
     /**
@@ -68,7 +66,7 @@ public class MyDocsPresenter implements MyDocsContract.Presenter {
      * with {@code @Nullable} values.
      */
     @Inject
-    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient, NativeAdProviderImpl adProvider) {
+    MyDocsPresenter(Context context, @NonNull MyDocsHttpClient httpClient, NativeAdProvider adProvider) {
         this.context = context;
         this.httpClient = checkNotNull(httpClient);
         this.adProvider = adProvider;

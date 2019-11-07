@@ -2,7 +2,6 @@ package com.ashomok.ocrme.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +12,7 @@ import com.annimon.stream.Stream;
 import com.ashomok.ocrme.OcrRequestsCounter;
 import com.ashomok.ocrme.R;
 import com.ashomok.ocrme.Settings;
+import com.ashomok.ocrme.ad.AdMobProvider;
 import com.ashomok.ocrme.billing.BillingProviderCallback;
 import com.ashomok.ocrme.billing.BillingProviderImpl;
 import com.ashomok.ocrme.utils.NetworkUtils;
@@ -43,6 +43,7 @@ public class MainPresenter implements MainContract.Presenter {
     private BillingProviderImpl billingProvider;
     private OcrRequestsCounter ocrRequestsCounter;
     private Optional<List<String>> languageCodes;
+    private AdMobProvider adMobContainer;
     private BillingProviderCallback billingProviderCallback = new BillingProviderCallback() {
         @Override
         public void onPurchasesUpdated() {
@@ -79,11 +80,13 @@ public class MainPresenter implements MainContract.Presenter {
     MainPresenter(Context context,
                   SharedPreferences mSharedPreferences,
                   BillingProviderImpl billingProvider,
-                  OcrRequestsCounter ocrRequestsCounter) {
+                  OcrRequestsCounter ocrRequestsCounter,
+                  AdMobProvider adMobContainer) {
         this.context = context;
         this.mSharedPreferences = mSharedPreferences;
         this.billingProvider = billingProvider;
         this.ocrRequestsCounter = ocrRequestsCounter;
+        this.adMobContainer=adMobContainer;
     }
 
     private void onPremiumStatusUpdated(boolean isPremium) {
@@ -103,7 +106,7 @@ public class MainPresenter implements MainContract.Presenter {
     public void showAdsIfNeeded() {
         if (Settings.isAdsActive) {
             if (view != null) {
-                view.showAds();
+                view.showAds(adMobContainer);
             }
         }
     }

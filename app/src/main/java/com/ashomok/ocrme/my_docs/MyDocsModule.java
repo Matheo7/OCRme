@@ -10,7 +10,7 @@ import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.BuildConfig;
 import com.ashomok.ocrme.R;
-import com.ashomok.ocrme.ad.NativeAdProviderImpl;
+import com.ashomok.ocrme.ad.NativeAdProvider;
 import com.ashomok.ocrme.my_docs.get_my_docs_task.MyDocsHttpClient;
 
 import dagger.Binds;
@@ -40,8 +40,8 @@ public abstract class MyDocsModule {
     }
 
     @Provides
-    static NativeAdProviderImpl provideNativeAdProviderImpl(Context context, @StringRes int adMobId) {
-        return new NativeAdProviderImpl(context, adMobId);
+    static NativeAdProvider provideNativeAdProviderImpl(Context context, @StringRes int adMobId) {
+        return new NativeAdProvider(context, adMobId);
     }
 
     @Binds

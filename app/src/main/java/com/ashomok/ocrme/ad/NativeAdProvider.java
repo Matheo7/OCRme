@@ -1,13 +1,14 @@
 package com.ashomok.ocrme.ad;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.StringRes;
 
+import com.ashomok.ocrme.R;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.VideoOptions;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
@@ -21,22 +22,23 @@ import io.reactivex.Single;
 
 import com.ashomok.ocrme.utils.LogHelper;
 
-public class NativeAdProviderImpl extends AdMobProviderImpl {
+public class NativeAdProvider {
     private Set<UnifiedNativeAd> nativeAds;
     private final Context context;
     private final int adid;
 
-    private static final String TAG = LogHelper.makeLogTag(NativeAdProviderImpl.class);
+    private static final String TAG = LogHelper.makeLogTag(NativeAdProvider.class);
 
     public Set<UnifiedNativeAd> getNativeAds() {
         return nativeAds;
     }
 
     @Inject
-    public NativeAdProviderImpl(Context context, @StringRes int adid) {
-        super(context, adid);
+    public NativeAdProvider(Context context, @StringRes int adid) {
         this.context = context;
         this.adid = adid;
+        String appId = context.getResources().getString(R.string.app_id);
+        MobileAds.initialize(context, appId);
         nativeAds = loadNativeAdsAsync();
     }
 

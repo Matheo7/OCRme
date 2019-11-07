@@ -1,7 +1,6 @@
 package com.ashomok.ocrme.ad;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -9,22 +8,12 @@ import android.widget.RelativeLayout;
 import androidx.annotation.StringRes;
 
 import com.ashomok.ocrme.R;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.VideoOptions;
-import com.google.android.gms.ads.formats.NativeAdOptions;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.inject.Inject;
-
-import io.reactivex.Single;
 
 import com.ashomok.ocrme.utils.LogHelper;
 
@@ -32,20 +21,18 @@ import com.ashomok.ocrme.utils.LogHelper;
  * Created by iuliia on 7/26/16.
  */
 
-public class AdMobProviderImpl implements AdProvider {
+public class AdMobProvider {
 
-    private static final String TAG = LogHelper.makeLogTag(AdMobProviderImpl.class);
+    private static final String TAG = LogHelper.makeLogTag(AdMobProvider.class);
     private final Context context;
     private final int adid;
 
-
     @Inject
-    public AdMobProviderImpl(Context context, @StringRes int adid) {
+    public AdMobProvider(Context context, @StringRes int adid) {
         this.context = context;
         this.adid = adid;
         String appId = context.getResources().getString(R.string.app_id);
         MobileAds.initialize(context, appId);
-
     }
 
 
@@ -89,7 +76,6 @@ public class AdMobProviderImpl implements AdProvider {
      *
      * @param parentLayout
      */
-    @Override
     public void initBottomBannerAd(ViewGroup parentLayout) {
         if (context.getResources().getConfiguration().orientation ==
                 android.content.res.Configuration.ORIENTATION_PORTRAIT) {
